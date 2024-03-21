@@ -45,6 +45,24 @@ def get_google_location_id(lat, lon):
     log_response_data(data, prefix=f"geocode_{lat}_{lon}")
 
     return data['results'][0]['place_id']
+
+def get_google_location_id_from_address(address):
+    """
+    Retrieves the Google location ID based on an address.
+
+    Args:
+        address (str): The address.
+
+    Returns:
+        str: The Google location ID.
+    """
+    url = f"https://maps.googleapis.com/maps/api/geocode/json?address={address}&result_type=point_of_interest&key={API_KEY}"
+    response = requests.get(url)
+    data = response.json()
+    
+    log_response_data(data, prefix=f"geocode_{address}")
+
+    return data['results'][0]['place_id']
     
 def get_google_location_details(location_id):
     """
