@@ -51,7 +51,7 @@ Our approach stands out in its originality with an extensive range of filtering 
 By combining the past approaches and providing a platform to visualize both the restaurants and routes in a detailed and easy to navigate fashion, our visualization aims to address the existing gap, to offer a unique combination of features and to become a valuable resource for food enthusiasts seeking personalized dining experiences based on their specific preferences and travel routes.
 
 
-
+## Milestone 2 (26th April, 5pm)
 
 **10% of the final grade**
 
