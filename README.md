@@ -17,11 +17,18 @@ Please, fill the following sections about your project.
 
 *(max. 2000 characters per section)*
 
-### Dataset
 
-> Find a dataset (or multiple) that you will explore. Assess the quality of the data it contains and how much preprocessing / data-cleaning it will require before tackling visualization. We recommend using a standard dataset as this course is not about scraping nor data processing.
+### Dataset
+We will mainly work with the [Michelin Guide Restaurants](https://www.kaggle.com/datasets/ngshiheng/michelin-guide-restaurants-2021) dataset, which is a CSV list of restaurants mentioned by the [Michelin Guide](https://guide.michelin.com/en). The columns contain information about the restaurant's name, full address, awards (Michelin star count and a special Bib Gourmand status), price level, website URL, phone number, and a description taken from the Michelin Guide website.
+
+In addition, we also plan to expand this data with the [Google Places API](https://developers.google.com/maps/documentation/places/web-service/overview?hl=tr), which returns more detailed information such as opening hours, reviews, whether it serves wine/beer, has wheelchair support, and so on.
+
+For some of the restaurants in Europe, there are also some entries on the website [TheFork](https://www.thefork.com/). For those restaurants, we plan to utilize the [The Fork The Spoon API](https://rapidapi.com/apidojo/api/the-fork-the-spoon), which returns menu information.
+
+***1052 characters***
+> Find a dataset (or multiple) that you will explore. Assess the quality of the data it contains and how much preprocessing/data cleaning it will require before tackling visualization. We recommend using a standard dataset as this course is not about scraping nor data processing.
 >
-> Hint: some good pointers for finding quality publicly available datasets ([Google dataset search](https://datasetsearch.research.google.com/), [Kaggle](https://www.kaggle.com/datasets), [OpenSwissData](https://opendata.swiss/en/), [SNAP](https://snap.stanford.edu/data/) and [FiveThirtyEight](https://data.fivethirtyeight.com/)), you could use also the DataSets proposed by the ENAC (see the Announcements section on Zulip).
+> Hint: some good pointers for finding quality publicly available datasets ([Google dataset search](https://datasetsearch.research.google.com/), [Kaggle](https://www.kaggle.com/datasets), [OpenSwissData](https://opendata.swiss/en/), [SNAP](https://snap.stanford.edu/data/), and [FiveThirtyEight](https://data.fivethirtyeight.com/)). You could also use the datasets proposed by the ENAC (see the Announcements section on Zulip).
 
 ### Problematic
 
@@ -31,15 +38,14 @@ Please, fill the following sections about your project.
 
 ### Exploratory Data Analysis
 
-> Pre-processing of the data set you chose
-> - Show some basic statistics and get insights about the data
+> Pre-processing of the dataset you chose
+> - Show some basic statistics and gain insights about the data
 
 ### Related work
 
-
 > - What others have already done with the data?
 > - Why is your approach original?
-> - What source of inspiration do you take? Visualizations that you found on other websites or magazines (might be unrelated to your data).
+> - What sources of inspiration do you take? Visualizations that you found on other websites or magazines (might be unrelated to your data).
 > - In case you are using a dataset that you have already explored in another context (ML or ADA course, semester project...), you are required to share the report of that work to outline the differences with the submission for this class.
 
 ## Milestone 2 (26th April, 5pm)
