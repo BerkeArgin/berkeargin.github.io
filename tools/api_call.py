@@ -23,47 +23,40 @@ def log_response_data(data, prefix=""):
     with open(filename, 'w') as f:
         json.dump(data, f)
 
-
-# TODO: Implement another function to get location ID from address:
-# Look at the following documentation for more information: 
-# https://developers.google.com/maps/documentation/places/web-service/text-search?hl=tr&apix_params=%7B%22fields%22%3A%22places.id%2Cplaces.name%22%2C%22resource%22%3A%7B%22textQuery%22%3A%22De%20Librije%2C%20Spinhuisplein%201%2C%20Zwolle%2C%208011%20ZZ%2C%20Netherlands%22%7D%7D#about_response
-def get_google_location_id(lat, lon):
+def search_places(text_query):
     """
-    Retrieves the Google location ID based on latitude and longitude.
+    Search for places using the Google Places API.
 
     Args:
-        lat (float): The latitude.
-        lon (float): The longitude.
+        text_query (str): The text query to search for places.
 
     Returns:
-        str: The Google location ID.
+        str: The ID of the first place found in the search results.
     """
-    url = f"https://maps.googleapis.com/maps/api/geocode/json?latlng={lat},{lon}&result_type=point_of_interest&key={API_KEY}"
-    response = requests.get(url)
-    data = response.json()
+    url = 'https://places.googleapis.com/v1/places:searchText'
     
-    log_response_data(data, prefix=f"geocode_{lat}_{lon}")
+    headers = {
+        'Content-Type': 'application/json',
+        'X-Goog-Api-Key': API_KEY,
+        'X-Goog-FieldMask': 'places.id'
+    }
 
-    return data['results'][0]['place_id']
-
-def get_google_location_id_from_address(address):
-    """
-    Retrieves the Google location ID based on an address.
-
-    Args:
-        address (str): The address.
-
-    Returns:
-        str: The Google location ID.
-    """
-    url = f"https://maps.googleapis.com/maps/api/geocode/json?address={address}&result_type=point_of_interest&key={API_KEY}"
-    response = requests.get(url)
-    data = response.json()
+    data = {
+        "textQuery": text_query
+    }
     
-    log_response_data(data, prefix=f"geocode_{address}")
+    response = requests.post(url, headers=headers, data=json.dumps(data))
 
-    return data['results'][0]['place_id']
+    log_response_data(response.json(), prefix=f"places_search_{text_query}")
     
+    if "places" not in response.json():
+        return None
+    if len(response.json()["places"]) == 0:
+        return None
+    
+    return response.json()["places"][0]["id"]
+    
+
 def get_google_location_details(location_id):
     """
     Retrieves the details of a Google location based on its ID.
@@ -81,6 +74,32 @@ def get_google_location_details(location_id):
     log_response_data(data, prefix=f"places_{location_id}")
 
     return data
+
+
+def get_the_fork_autocomplete(text_to_search):
+    """
+    Retrieves auto-complete suggestions for a search query from The Fork API.
+
+    Args:
+        text_to_search (str): The text to search for.
+
+    Returns:
+        dict: The auto-complete suggestions.
+    """
+    url = "https://the-fork-the-spoon.p.rapidapi.com/locations/v2/auto-complete"
+
+    querystring = {"text": text_to_search}
+
+    headers = {
+        "X-RapidAPI-Key": X_RAPIDAPI_KEY,
+        "X-RapidAPI-Host": "the-fork-the-spoon.p.rapidapi.com"
+    }
+
+    response = requests.get(url, headers=headers, params=querystring)
+    log_response_data(response.json(), prefix=f"the_fork_auto_complete_{text_to_search}")
+
+    return response.json()
+
 
 def get_the_fork_data(location_id):
     """
@@ -106,26 +125,4 @@ def get_the_fork_data(location_id):
     log_response_data(response.json(), prefix=f"the_fork_{querystring['restaurantId']}")
     return response.json()
 
-def get_the_fork_autocomplete(text_to_search):
-    """
-    Retrieves auto-complete suggestions for a search query from The Fork API.
 
-    Args:
-        text_to_search (str): The text to search for.
-
-    Returns:
-        dict: The auto-complete suggestions.
-    """
-    url = "https://the-fork-the-spoon.p.rapidapi.com/locations/v2/auto-complete"
-
-    querystring = {"text": text_to_search}
-
-    headers = {
-        "X-RapidAPI-Key": X_RAPIDAPI_KEY,
-        "X-RapidAPI-Host": "the-fork-the-spoon.p.rapidapi.com"
-    }
-
-    response = requests.get(url, headers=headers, params=querystring)
-    log_response_data(response.json(), prefix=f"the_fork_auto_complete_{text_to_search}")
-
-    return response.json()
