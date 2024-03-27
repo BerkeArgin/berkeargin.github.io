@@ -50,7 +50,7 @@ Our approach stands out in its originality with an extensive range of filtering 
 
 By combining the past approaches and providing a platform to visualize both the restaurants and locations in an easy to navigate fashion, our visualization aims to address the existing gap and to become a valuable resource for food enthusiasts seeking personalized dining experiences based on their specific preferences and selected destination.
 
-
+CHAR COUNT: 1981
 ## Milestone 2 (26th April, 5pm)
 
 **10% of the final grade**
