@@ -76,7 +76,7 @@ def get_google_location_details(location_id):
     return data
 
 
-def get_the_fork_autocomplete(text_to_search):
+def get_the_fork_autocomplete(text_to_search,latitute,longitude):
     """
     Retrieves auto-complete suggestions for a search query from The Fork API.
 
@@ -86,9 +86,9 @@ def get_the_fork_autocomplete(text_to_search):
     Returns:
         dict: The auto-complete suggestions.
     """
-    url = "https://the-fork-the-spoon.p.rapidapi.com/locations/v2/auto-complete"
+    url = "https://the-fork-the-spoon.p.rapidapi.com/restaurants/v2/auto-complete"
 
-    querystring = {"text": text_to_search}
+    querystring = {"text": text_to_search,"latitude":latitute,"longitude":longitude}
 
     headers = {
         "X-RapidAPI-Key": X_RAPIDAPI_KEY,
