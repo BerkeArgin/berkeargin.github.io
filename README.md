@@ -42,7 +42,7 @@ In addition, we also plan to expand this data with the [Google Places API](https
 For some of the restaurants in Europe, there are also some entries on the website [TheFork](https://www.thefork.com/). For those restaurants, we plan to utilize the [The Fork The Spoon API](https://rapidapi.com/apidojo/api/the-fork-the-spoon), which returns further information such as chef name, accepted currency, and menu data, a nested JSON list with meal descriptions (e.g. ingredients, chef commentary, and price). 
 
 
-***1052 characters***
+***1540 characters***
 > Find a dataset (or multiple) that you will explore. Assess the quality of the data it contains and how much preprocessing/data cleaning it will require before tackling visualization. We recommend using a standard dataset as this course is not about scraping nor data processing.
 >
 > Hint: some good pointers for finding quality publicly available datasets ([Google dataset search](https://datasetsearch.research.google.com/), [Kaggle](https://www.kaggle.com/datasets), [OpenSwissData](https://opendata.swiss/en/), [SNAP](https://snap.stanford.edu/data/), and [FiveThirtyEight](https://data.fivethirtyeight.com/)). You could also use the datasets proposed by the ENAC (see the Announcements section on Zulip).
@@ -57,6 +57,10 @@ For some of the restaurants in Europe, there are also some entries on the websit
 
 > Pre-processing of the dataset you chose
 > - Show some basic statistics and gain insights about the data
+
+Following our dataset overview, we've proceeded with exploratory data analysis (EDA) on the Michelin Guide Restaurants dataset in the [`eda.ipynb`]() notebook. This step aims to understand the dataset's structure and key characteristics, focusing on the geographical distribution of restaurants, cuisine diversity, and Michelin awards distribution.
+
+The analysis includes visualizing the restaurants' locations to assess geographical trends, examining the distribution of Michelin stars, and exploring the relationship between restaurant pricing and awards. These insights are crucial for our next steps, particularly for visualizing data on an interactive map.
 
 ### Related work
 
