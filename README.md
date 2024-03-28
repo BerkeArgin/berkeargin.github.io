@@ -19,7 +19,23 @@ Please, fill the following sections about your project.
 
 
 ### Dataset
-We will mainly work with the [Michelin Guide Restaurants](https://www.kaggle.com/datasets/ngshiheng/michelin-guide-restaurants-2021) dataset, which is a CSV list of restaurants mentioned by the [Michelin Guide](https://guide.michelin.com/en). The columns contain information about the restaurant's name, full address, latitude, longitude, awards (Michelin star count and a special Bib Gourmand status), price level, website URL, phone number, and a description taken from the Michelin Guide website. Since we are planning to visualize these restaurants on a interactive map, latitude and longitude are the most essential fields. We also plan to visualize the number of Michelin stars, as well as put contract information of the restaurants in our UI.
+We will mainly work with the [Michelin Guide Restaurants](https://www.kaggle.com/datasets/ngshiheng/michelin-guide-restaurants-2021) dataset, which is a CSV list of restaurants mentioned by the [Michelin Guide](https://guide.michelin.com/en). The dataset consists of **6794 rows**, each representing a unique Michelin-starred restaurant. This dataset encompasses **13 columns** which provide various details about the restaurants such as:
+
+- `Name`
+- `Address`
+- `Location`
+- `Price`
+- `Cuisine`
+- `Longitude`
+- `Latitude`
+- `PhoneNumber`
+- `Url`
+- `WebsiteUrl`
+- `Award`   (Michelin star count and a special Bib Gourmand status)
+- `FacilitiesAndServices`
+- `Description` (taken from the Michelin Guide Website)
+
+Since we are planning to visualize these restaurants on a interactive map, latitude and longitude are the most essential fields. We also plan to visualize the number of Michelin stars, as well as put contract information of the restaurants in our UI.
 
 In addition, we also plan to expand this data with the [Google Places API](https://developers.google.com/maps/documentation/places/web-service/overview?hl=tr), which returns more detailed information such as opening hours, reviews, whether it serves wine/beer, has wheelchair support, and so on. We plan to visualize the opening hours on a calendar and use the extra flags (e.g. serves beer) for filtering purposes. Also, we plan to experiment with review word clouds to provide further insight to the restaurants.
 
