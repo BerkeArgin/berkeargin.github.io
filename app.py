@@ -5,9 +5,9 @@ import json
 
 app = Flask(__name__)
 
-@app.route('/data/places.geojson')
+@app.route('/data/michelin_restaurants.geojson')
 def places():
-    with open('data/places.geojson') as f:
+    with open('data/michelin_restaurants.geojson') as f:
         data = json.load(f)
     return data
 

@@ -2,22 +2,59 @@
 <html>
 <head>
     <meta charset="utf-8" />
+    <title>Datatouille</title>
     <link rel="stylesheet" href="http://cdn.leafletjs.com/leaflet-0.7/leaflet.css" />
     <link href='https://api.tiles.mapbox.com/mapbox.js/v1.6.4/mapbox.css' rel='stylesheet' />
-
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@700&display=swap" rel="stylesheet">
     <script src="http://d3js.org/d3.v3.min.js" type="text/javascript"></script>
     <script src="http://cdn.leafletjs.com/leaflet-0.7/leaflet.js"></script>
-
     <script src='https://api.tiles.mapbox.com/mapbox.js/v1.6.4/mapbox.js'></script>
     <style>
-    html,
-    body {
+    html, body {
         height: 100%;
         width: 100%;
         margin: 0;
         padding: 0;
         display: flex;
+        flex-direction: column;
+        font-family: 'Roboto', sans-serif;
+    }
+    #nav-bar {
+        width: 100%;
+        background-color: #343a40;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 20 20px;
+    }
+    .navbar-title, .navbar-logo-container {
+        display: flex;
+        align-items: center;
+    }
+    .navbar-logo {
+        height: 50px;
+        margin-right: 10px; /* Space between logo and title */
+    }
+    .navbar-title {
+        color: red;
+        font-size: 28px;
+        font-weight: bold;
+        font-family: 'Montserrat', sans-serif;
+    }
+    .navbar-nav {
+        display: flex;
+        justify-content: flex-end;
+        align-items: center;
+    }
+    .navbar a {
+        color: white;
+        padding: 14px 30px;
+        text-decoration: none;
+        text-align: center;
+        display: block;
+        font-size: 18px;
     }
     #map {
         flex: 1;
@@ -30,9 +67,6 @@
         overflow-y: auto;
         transition: width 0.3s ease;
     }
-    #toggle-button {
-        margin-bottom: 10px;
-    }
     .collapsed {
         width: 0;
         padding: 0;
@@ -40,16 +74,26 @@
     }
     #button-dashboard {
         position: absolute;
-        top: 10px;
+        top: 60px;
         left: 10px;
         z-index: 1000;
     }
     </style>
-
 </head>
-
 <body>
-    
+    <div id="nav-bar" class="navbar navbar-expand-lg navbar-dark">
+        <div class="navbar-logo-container">
+            <img src="../static/images/website_logo.jpg" class="navbar-logo" alt="Website Logo">
+            <div class="navbar-title">Datatouille</div>
+        </div>
+        <div class="navbar-nav ml-auto">
+            <a class="nav-item nav-link" href="#main">Home</a>
+            <a class="nav-item nav-link" href="#michelin-guide">Michelin Guide</a>
+            <a class="nav-item nav-link" href="#statistics">Statistics</a>
+            <a class="nav-item nav-link" href="#about-us">About Us</a>
+        </div>
+    </div>
+
     <div id="button-dashboard">
         <button id="button1" class="btn btn-primary">Button 1</button>
         <button id="button2" class="btn btn-secondary">Button 2</button>
@@ -58,20 +102,26 @@
     
     <div id="map"></div>
     
-    <div id="info-dashboard" class="collapsed">
+    <!-- <div id="info-dashboard" class="collapsed">
         <button id="toggle-button" class="btn btn-info" onclick="toggleInfoDashboard()">Toggle</button>
         <div id="info-content">
             Info Dashboard Content
         </div>
-    </div>
+    </div> -->
+
 
     <script src="../static/map.js"></script>
-    <script>
+    <!--<script>
     function toggleInfoDashboard() {
         var infoDashboard = document.getElementById('info-dashboard');
         infoDashboard.classList.toggle('collapsed');
     }
-    </script>
+    </script>-->
 </body>
 </html>
+
+
+
+
+
 
