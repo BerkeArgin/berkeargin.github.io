@@ -2,62 +2,55 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>About Us - Datatouille</title>
+    <title>Michelin Guide - Datatouille</title>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@700&display=swap" rel="stylesheet">
     <style>
-        html, body {
+        body {
             height: 100%;
+            width: 100%;
             margin: 0;
             padding: 0;
+            display: flex;
+            flex-direction: column;
             font-family: 'Roboto', sans-serif;
         }
         #nav-bar {
+            width: 100%;
             background-color: #343a40;
-            padding: 20px;
             display: flex;
             justify-content: space-between;
+            align-items: center;
+            padding: 20px 20px;
+            height: 100px; /* Assuming 70px is the total height including padding */
+        }
+        .navbar-title, .navbar-logo-container {
+            display: flex;
             align-items: center;
         }
         .navbar-logo {
             height: 60px;
-            margin-right: 20px;
+            margin-right: 2px; /* Space between logo and title */
         }
         .navbar-title {
-            color: red;
+            color: rgb(248, 9, 9);
             font-size: 28px;
             font-weight: bold;
             font-family: 'Montserrat', sans-serif;
+        }
+        .navbar-nav {
+            display: flex;
+            justify-content: flex-end;
+            align-items: center;
         }
         .navbar a {
             color: white;
             padding: 14px 30px;
             text-decoration: none;
+            text-align: center;
+            display: block;
             font-size: 18px;
-        }
-        .content {
-            padding: 20px;
-            text-align: justify;
-        }
-        h1, h2 {
-            font-family: 'Montserrat', sans-serif;
-        }
-        .team-member {
-            margin-top: 20px;
-        }
-        .team-member img {
-            width: 150px;
-            height: 150px;
-            border-radius: 50%;
-            margin-right: 20px;
-        }
-        .team-description {
-            vertical-align: top;
-        }
-        .team-info {
-            display: flex;
-            align-items: center;
         }
     </style>
 </head>
@@ -65,32 +58,20 @@
     <div id="nav-bar" class="navbar navbar-expand-lg navbar-dark">
         <div class="navbar-logo-container">
             <img src="../static/images/website_logo.jpg" class="navbar-logo" alt="Website Logo">
-            <div class="navbar-title">Datatouille</div>
+            <!-- Make the title a link to the main page -->
+            <a href="../index.html" class="navbar-title-link">
+                <div class="navbar-title">Datatouille</div>
+            </a>
         </div>
         <div class="navbar-nav ml-auto">
-            <a class="nav-item nav-link" href="#main">Home</a>
+            <!-- Make the Home link refer back to the main page -->
+            <a class="nav-item nav-link" href="../index.html">Home</a>
             <a class="nav-item nav-link" href="#michelin-guide">Michelin Guide</a>
-            <a class="nav-item nav-link" href="#statistics">Statistics</a>
-            <a class="nav-item nav-link active" href="#about-us">About Us</a>
+            <a class="nav-item nav-link" href="../templates/statistics.html">Statistics</a>
+            <a class="nav-item nav-link" href="../templates/about_us.html">About Us</a>
+            <a class="nav-item nav-link" href="../templates/about_project.html">Project</a>
         </div>
     </div>
-    <div class="content">
-        <h1>About Us</h1>
-        <p>
-            Welcome to Datatouille! We are dedicated to providing insightful data visualizations and analysis on various topics. Our team consists of experienced data scientists and developers passionate about bringing data to life in meaningful and accessible ways.
-        </p>
-        <h2>Meet Our Team</h2>
-        <!-- Example member -->
-        <div class="team-info">
-            <img src="../static/images/member1.jpg" alt="Team Member Photo">
-            <div class="team-description">
-                <h3>Jane Doe</h3>
-                <p>
-                    Jane is a data scientist with over 10 years of experience in the field. She specializes in predictive modeling and machine learning.
-                </p>
-            </div>
-        </div>
-        <!-- Repeat for other members -->
-    </div>
+    
 </body>
 </html>

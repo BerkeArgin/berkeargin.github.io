@@ -7,58 +7,105 @@
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@700&display=swap" rel="stylesheet">
     <style>
-        html, body {
+        body {
             height: 100%;
+            width: 100%;
             margin: 0;
             padding: 0;
+            display: flex;
+            flex-direction: column;
             font-family: 'Roboto', sans-serif;
         }
         #nav-bar {
+            width: 100%;
             background-color: #343a40;
             display: flex;
             justify-content: space-between;
             align-items: center;
             padding: 20px 20px;
-            height: 100px;
+            height: 100px; /* Assuming 70px is the total height including padding */
+        }
+        .navbar-title, .navbar-logo-container {
+            display: flex;
+            align-items: center;
         }
         .navbar-logo {
             height: 60px;
-            margin-right: 20px;
+            margin-right: 2px; /* Space between logo and title */
         }
         .navbar-title {
-            color: red;
+            color: rgb(248, 9, 9);
             font-size: 28px;
             font-weight: bold;
             font-family: 'Montserrat', sans-serif;
+        }
+        .navbar-nav {
+            display: flex;
+            justify-content: flex-end;
+            align-items: center;
         }
         .navbar a {
             color: white;
             padding: 14px 30px;
             text-decoration: none;
+            text-align: center;
+            display: block;
             font-size: 18px;
         }
         .content {
             padding: 20px;
-            text-align: justify;
+            max-width: 1200px;
+            margin: auto;
+            background: #ffffff;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
         }
         h1, h2 {
             font-family: 'Montserrat', sans-serif;
+            color: #0056b3; /* Dark blue for a modern look */
         }
-        .team-member {
-            margin-top: 20px;
-        }
-        .team-member img {
-            width: 150px;
-            height: 150px;
-            border-radius: 50%;
-            margin-right: 20px;
-        }
-        .team-description {
-            vertical-align: top;
+        .team-container {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 20px;
         }
         .team-info {
             display: flex;
+            flex-direction: column;
             align-items: center;
+            background: white;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+            margin-top: 20px;
+            padding: 20px;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .team-info:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 12px 24px rgba(0,0,0,0.2);
+        }
+
+        .team-info img {
+            width: 150px;
+            height: 150px;
+            border-radius: 50%;
+            margin-bottom: 10px; /* Added margin-bottom for spacing */
+        }
+
+        .team-description {
+            text-align: center; /* This ensures all text within the description is centered */
+        }
+
+        .team-description h3 {
+            color: #0056b3; /* Dark blue for headings */
+            margin-top: 0;
+            margin-bottom: 5px; /* Added for spacing consistency */
+        }
+        .team-description p {
+            text-align: center;
+            color: #666;
+            font-size: 16px;
         }
     </style>
 </head>
@@ -67,54 +114,47 @@
         <div class="navbar-logo-container">
             <img src="../static/images/website_logo.jpg" class="navbar-logo" alt="Website Logo">
             <!-- Make the title a link to the main page -->
-            <a href="../templates/index.html" class="navbar-title-link">
+            <a href="../index.html" class="navbar-title-link">
                 <div class="navbar-title">Datatouille</div>
             </a>
         </div>
         <div class="navbar-nav ml-auto">
             <!-- Make the Home link refer back to the main page -->
-            <a class="nav-item nav-link" href="../templates/index.html">Home</a>
+            <a class="nav-item nav-link" href="../index.html">Home</a>
             <a class="nav-item nav-link" href="../templates/michelin_guide.html">Michelin Guide</a>
             <a class="nav-item nav-link" href="../templates/statistics.html">Statistics</a>
             <a class="nav-item nav-link" href="#about-us">About Us</a>
+            <a class="nav-item nav-link" href="../templates/about_project.html">Project</a>
         </div>
     </div>
-
     <div class="content">
         <h1>About Us</h1>
-        <p>
-            Welcome to Datatouille! We are dedicated to providing insightful data visualizations and analysis on various topics. Our team consists of experienced data scientists and developers passionate about bringing data to life in meaningful and accessible ways.
-        </p>
+        <p>Welcome to Datatouille! This website has been designed by three EPFL students as part of the Data Visualization (COM-480) Course. </p>
+        <p>Our main motivation to focus on Michelin Guide data, beyond our gourmet interests, stems from the noticeable lack of effective visualizations that engage audiences by filtering restaurants according to various features via an interactive map to display these filtered results in an engaging way, including closest Michelin restaurants to a selected location and routes that feature the selected restaurants world-wide.</p>
         <h2>Meet Our Team</h2>
-        <!-- Example member -->
-        <div class="team-info">
-            <img src="../static/images/member1.jpg" alt="Team Member Photo">
-            <div class="team-description">
-                <h3>Jane Doe</h3>
-                <p>
-                    Jane is a data scientist with over 10 years of experience in the field. She specializes in predictive modeling and machine learning.
-                </p>
+        <div class="team-container">
+            <div class="team-info">
+                <img src="../static/images/ilkergul_datatouille.png" alt="Ilker Gül">
+                <div class="team-description">
+                    <h3>Ilker Gül</h3>
+                    <p>MSc. in CS @ EPFL | BSc in CS @ Sabanci University</p>
+                </div>
+            </div>
+            <div class="team-info">
+                <img src="../static/images/website_logo.jpg" alt="Ilker Gül">
+                <div class="team-description">
+                    <h3>Berke Argin</h3>
+                    <p>MSc. in CS @ EPFL | BSc in CS @ Bogazici University</p>
+                </div>
+            </div>
+            <div class="team-info">
+                <img src="../static/images/website_logo.jpg" alt="Ilker Gül">
+                <div class="team-description">
+                    <h3>Nazlican Turan</h3>
+                    <p>MSc. in CS @ EPFL | BSc in CS @ Sabanci University</p>
+                </div>
             </div>
         </div>
-        <div class="team-info">
-            <img src="../static/images/member1.jpg" alt="Team Member Photo">
-            <div class="team-description">
-                <h3>Jane Doe</h3>
-                <p>
-                    Jane is a data scientist with over 10 years of experience in the field. She specializes in predictive modeling and machine learning.
-                </p>
-            </div>
-        </div>
-        <div class="team-info">
-            <img src="../static/images/member1.jpg" alt="Team Member Photo">
-            <div class="team-description">
-                <h3>Jane Doe</h3>
-                <p>
-                    Jane is a data scientist with over 10 years of experience in the field. She specializes in predictive modeling and machine learning.
-                </p>
-            </div>
-        </div>
-        <!-- Repeat for other members -->
     </div>
 </body>
 </html>
