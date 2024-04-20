@@ -28,15 +28,15 @@
         justify-content: space-between;
         align-items: center;
         padding: 20px 20px;
-        height: 90px; /* Assuming 70px is the total height including padding */
+        height: 100px; /* Assuming 70px is the total height including padding */
     }
     .navbar-title, .navbar-logo-container {
         display: flex;
         align-items: center;
     }
     .navbar-logo {
-        height: 50px;
-        margin-right: 10px; /* Space between logo and title */
+        height: 60px;
+        margin-right: 2px; /* Space between logo and title */
     }
     .navbar-title {
         color: red;
@@ -66,9 +66,9 @@
     .filter-panel {
         position: fixed;
         right: 0;
-        top: 90px; /* Adjust based on your navbar height */
+        top: 100px; /* Adjust based on your navbar height */
         width: 300px; /* Width of the panel */
-        height: calc(100% - 90px); /* Full height minus navbar */
+        height: calc(100% - 100px); /* Full height minus navbar */
         background-color: #ffffff; /* White background for a clean look */
         box-shadow: -2px 0 5px rgba(0, 0, 0, 0.1); /* Soft shadow for depth */
         border-left: 1px solid #e7e7e7; /* Light border for definition */
@@ -87,7 +87,7 @@
     .toggle-button {
         position: fixed;
         right: 0; /* Stick to the right edge */
-        top: 90px; /* Center vertically */
+        top: 100px; /* Center vertically */
         z-index: 1010; /* Ensure it's above other elements */
         border-radius: 0 0 0 5px; /* Rounded corners on the left side */
         background-color: #17a2b8; /* Bootstrap info color for consistency */
@@ -191,9 +191,13 @@
     <div id="nav-bar" class="navbar navbar-expand-lg navbar-dark">
         <div class="navbar-logo-container">
             <img src="../static/images/website_logo.jpg" class="navbar-logo" alt="Website Logo">
-            <div class="navbar-title">Datatouille</div>
+            <!-- Make the title a link to the main page -->
+            <a href="#main" class="navbar-title-link">
+                <div class="navbar-title">Datatouille</div>
+            </a>
         </div>
         <div class="navbar-nav ml-auto">
+            <!-- Make the Home link refer back to the main page -->
             <a class="nav-item nav-link" href="#main">Home</a>
             <a class="nav-item nav-link" href="#michelin-guide">Michelin Guide</a>
             <a class="nav-item nav-link" href="#statistics">Statistics</a>
