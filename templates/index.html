@@ -27,7 +27,8 @@
         display: flex;
         justify-content: space-between;
         align-items: center;
-        padding: 20 20px;
+        padding: 20px 20px;
+        height: 90px; /* Assuming 70px is the total height including padding */
     }
     .navbar-title, .navbar-logo-container {
         display: flex;
@@ -60,25 +61,137 @@
         flex: 1;
         height: 100%;
     }
-    #info-dashboard {
-        width: 200px;
-        background-color: #f8f9fa;
-        padding: 10px;
-        overflow-y: auto;
-        transition: width 0.3s ease;
-    }
-    .collapsed {
-        width: 0;
-        padding: 0;
-        overflow: hidden;
-    }
+   
     #button-dashboard {
         position: absolute;
         top: 60px;
         left: 10px;
         z-index: 1000;
     }
+    /* Modern Filter Panel Styling */
+    .filter-panel {
+        position: fixed;
+        right: 0;
+        top: 90px; /* Adjust based on your navbar height */
+        width: 300px; /* Width of the panel */
+        height: calc(100% - 90px); /* Full height minus navbar */
+        background-color: #ffffff; /* White background for a clean look */
+        box-shadow: -2px 0 5px rgba(0, 0, 0, 0.1); /* Soft shadow for depth */
+        border-left: 1px solid #e7e7e7; /* Light border for definition */
+        padding: 20px;
+        box-sizing: border-box;
+        transition: right 0.3s ease-in-out;
+        overflow-y: auto; /* Allows scrolling if content is too long */
+        z-index: 1000;
+        right: -300px; /* Start off-screen */
+    }
+
+    .collapsed {
+        right: -300px; /* Remain offscreen when collapsed */
+    }
+
+    .toggle-button {
+        position: fixed;
+        right: 0; /* Stick to the right edge */
+        top: 90px; /* Center vertically */
+        z-index: 1010; /* Ensure it's above other elements */
+        border-radius: 0 0 0 5px; /* Rounded corners on the left side */
+        background-color: #17a2b8; /* Bootstrap info color for consistency */
+        color: white; /* Text color for the button */
+    }
+
+    #filter-content h3 {
+        text-align: center; /* Center the heading */
+        margin-bottom: 20px;
+        color: #333; /* Dark gray for contrast */
+        font-size: 24px; /* Larger font size */
+    }
+
+    .filter-section {
+        margin-bottom: 20px;
+    }
+
+    .filter-section label {
+        display: block;
+        margin-bottom: 5px;
+        font-weight: bold;
+        color: #333;
+    }
+
+    .filter-section input[type="text"], .filter-section select {
+        width: 100%;
+        padding: 10px;
+        margin-bottom: 15px;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+        box-sizing: border-box;
+    }
+
+    .filter-section input[type="checkbox"] {
+        margin-right: 5px;
+    }
+
+    /* Style checkboxes like buttons for a modern touch */
+    .filter-section input[type="checkbox"] + label {
+        background-color: #f7f7f7;
+        padding: 5px 10px;
+        border: 1px solid #d1d1d1;
+        border-radius: 4px;
+        display: inline-block;
+        margin-right: 10px;
+        cursor: pointer;
+    }
+
+    /* Change background for checked state */
+    .filter-section input[type="checkbox"]:checked + label {
+        background-color: #007bff;
+        color: white;
+    }
+
+    /* Style for checkboxes to look like buttons */
+    .btn-checkbox {
+        display: inline-block;
+        padding: 5px 15px;
+        margin: 2px;
+        text-align: center;
+        background-color: #f7f7f7;
+        border: 1px solid #d1d1d1;
+        border-radius: 4px;
+        cursor: pointer;
+        transition: background-color 0.3s ease;
+    }
+
+    /* Change background for checked state */
+    .filter-section input[type="checkbox"]:checked + .btn-checkbox {
+        background-color: #007bff; /* Bootstrap primary color */
+        color: white;
+    }
+
+    /* Style for the heading */
+    .filter-section p {
+        font-weight: bold;
+        margin-bottom: 10px;
+    }
+
+    #apply-filters {
+        width: 100%;
+        padding: 10px;
+        background-color: #0056b3; /* Bootstrap primary color */
+        color: white;
+        border: none;
+        border-radius: 4px;
+        font-size: 16px;
+        cursor: pointer;
+        transition: background-color 0.2s;
+    }
+
+    #apply-filters:hover {
+        background-color: #003d82; /* Darker on hover */
+    }
+
+
     </style>
+
 </head>
 <body>
     <div id="nav-bar" class="navbar navbar-expand-lg navbar-dark">
@@ -102,20 +215,132 @@
     
     <div id="map"></div>
     
-    <!-- <div id="info-dashboard" class="collapsed">
-        <button id="toggle-button" class="btn btn-info" onclick="toggleInfoDashboard()">Toggle</button>
-        <div id="info-content">
-            Info Dashboard Content
-        </div>
-    </div> -->
+    <!-- Toggle Button for Filter Panel -->
+    <button id="toggle-filter-button" class="btn btn-info toggle-button">Filters</button>
 
+   <!-- Filter Panel -->
+    <div id="filter-panel" class="filter-panel collapsed">
+        <div id="filter-content">
+            <h3>Filter Options</h3>
+            <form id="filter-form">
+                <!-- Country Filter -->
+                <div class="filter-section">
+                    <label for="country-input">Country:</label>
+                    <input type="text" id="country-input" name="country" placeholder="Enter country">
+                </div>
+        
+                <!-- City Filter -->
+                <div class="filter-section">
+                    <label for="city-input">City:</label>
+                    <input type="text" id="city-input" name="city" placeholder="Enter city">
+                </div>
+
+                <!-- Name Filter -->
+                <div class="filter-section">
+                    <label for="name-input">Name:</label>
+                    <input type="text" id="name-input" name="name" placeholder="Enter name">
+                </div>
+
+                <!-- Continent Filter -->
+                <div class="filter-section">
+                    <p><strong>Continent:</strong></p>
+                    <div>
+                        <input type="checkbox" id="continent-asia" name="continent" value="Asia" hidden>
+                        <label for="continent-asia" class="btn-checkbox">Asia</label>
+                    </div>
+                    <div>
+                        <input type="checkbox" id="continent-europe" name="continent" value="Europe" hidden>
+                        <label for="continent-europe" class="btn-checkbox">Europe</label>
+                    </div>
+                    <div>
+                        <input type="checkbox" id="continent-north-america" name="continent" value="North America" hidden>
+                        <label for="continent-north-america" class="btn-checkbox">North America</label>
+                    </div>
+                    <div>
+                        <input type="checkbox" id="continent-south-america" name="continent" value="South America" hidden>
+                        <label for="continent-south-america" class="btn-checkbox">South America</label>
+                    </div>
+                </div>
+
+                <!-- Awards Filter -->
+                <div class="filter-section">
+                    <p><strong>Awards:</strong></p>
+                    <div>
+                        <input type="checkbox" id="bib-gourmand" name="award" value="Bib Gourmand" hidden>
+                        <label for="bib-gourmand" class="btn-checkbox">Bib Gourmand</label>
+                    </div>
+                    <div>
+                        <input type="checkbox" id="one-star" name="award" value="1 Star" hidden>
+                        <label for="one-star" class="btn-checkbox">1 Star</label>
+                    </div>
+                    <div>
+                        <input type="checkbox" id="two-stars" name="award" value="2 Stars" hidden>
+                        <label for="two-stars" class="btn-checkbox">2 Stars</label>
+                    </div>
+                    <div>
+                        <input type="checkbox" id="three-stars" name="award" value="3 Stars" hidden>
+                        <label for="three-stars" class="btn-checkbox">3 Stars</label>
+                    </div>
+                </div>
+        
+                <!-- Submit Button -->
+                <div class="filter-section">
+                    <button type="button" id="apply-filters" class="btn btn-primary">Apply Filters</button>
+                </div>
+            </form>
+        </div>
+    </div>
 
     <script src="../static/map.js"></script>
-    <!--<script>
-    function toggleInfoDashboard() {
-        var infoDashboard = document.getElementById('info-dashboard');
-        infoDashboard.classList.toggle('collapsed');
-    }
-    </script>-->
+    <script>
+        document.getElementById('toggle-filter-button').addEventListener('click', function() {
+            var panel = document.getElementById('filter-panel');
+            var mapArea = document.getElementById('map');
+            var toggleButton = document.getElementById('toggle-filter-button');
+            var panelWidth = '300px'; // Set the panel width
+        
+            if (panel.classList.contains('collapsed')) {
+                panel.style.right = '0'; // Move panel into view
+                mapArea.style.width = 'calc(100% - ' + panelWidth + ')'; // Adjust map width
+                toggleButton.style.right = panelWidth; // Move button with panel
+                panel.classList.remove('collapsed');
+            } else {
+                panel.style.right = '-' + panelWidth; // Move panel out of view
+                mapArea.style.width = '100%'; // Map takes full width
+                toggleButton.style.right = '0'; // Button sticks to the right edge
+                panel.classList.add('collapsed');
+            }
+        
+            // Trigger a resize event on the map so Leaflet can adjust to the new dimensions
+            map.invalidateSize();
+        });
+
+        document.getElementById('apply-filters').addEventListener('click', function() {
+            var country = document.getElementById('country-input').value;
+            var city = document.getElementById('city-input').value;
+            var name = document.getElementById('name-input').value;
+            var awards = [];
+            var continents = [];
+
+            document.querySelectorAll('#filter-form input[name="award"]:checked').forEach(function(awardInput) {
+                awards.push(awardInput.value);
+            });
+
+            document.querySelectorAll('#filter-form input[name="continent"]:checked').forEach(function(continentInput) {
+                continents.push(continentInput.value);
+            });
+
+            // Implement the filterMapData function to handle filtering
+            filterMapData(country, city, continents, name, awards);
+        });
+
+        function filterMapData(country, city, continents, name, awards) {
+            // Logic to filter map data based on country, city, continent, name, and awards
+            console.log('Filtering for country:', country, 'city:', city, 'continents:', continents, 'name:', name, 'and awards:', awards);
+            // Your code to update the map based on filters goes here
+        }
+
+    </script>
+    
 </body>
 </html>
