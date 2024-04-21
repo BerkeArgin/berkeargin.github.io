@@ -23,7 +23,7 @@
     }
     #nav-bar {
         width: 100%;
-        background-color: #343a40;
+        background-color: #faf7f7;
         display: flex;
         justify-content: space-between;
         align-items: center;
@@ -35,11 +35,11 @@
         align-items: center;
     }
     .navbar-logo {
-        height: 60px;
+        height: 70px;
         margin-right: 2px; /* Space between logo and title */
     }
     .navbar-title {
-        color: red;
+        color: rgb(166, 48, 48);
         font-size: 28px;
         font-weight: bold;
         font-family: 'Montserrat', sans-serif;
@@ -50,7 +50,7 @@
         align-items: center;
     }
     .navbar a {
-        color: white;
+        color: rgb(166, 48, 48);
         padding: 14px 30px;
         text-decoration: none;
         text-align: center;
@@ -90,32 +90,33 @@
         top: 100px; /* Center vertically */
         z-index: 1010; /* Ensure it's above other elements */
         border-radius: 0 0 0 5px; /* Rounded corners on the left side */
-        background-color: #17a2b8; /* Bootstrap info color for consistency */
+        background-color: rgb(166, 48, 48);
         color: white; /* Text color for the button */
     }
 
     #filter-content h3 {
         text-align: center; /* Center the heading */
-        margin-bottom: 20px;
+        margin-bottom: 10px;
         color: #333; /* Dark gray for contrast */
         font-size: 24px; /* Larger font size */
     }
 
     .filter-section {
-        margin-bottom: 20px;
+        margin-bottom: 10px;
     }
 
     .filter-section label {
         display: block;
         margin-bottom: 5px;
         font-weight: bold;
+        font-size: 16px; /* smaller font size */
         color: #333;
     }
 
     .filter-section input[type="text"], .filter-section select {
         width: 100%;
-        padding: 10px;
-        margin-bottom: 15px;
+        padding: 5px;
+        margin-bottom: 10px;
         border: 1px solid #ccc;
         border-radius: 4px;
         box-sizing: border-box;
@@ -138,14 +139,14 @@
 
     /* Change background for checked state */
     .filter-section input[type="checkbox"]:checked + label {
-        background-color: #007bff;
+        background-color: rgb(166, 48, 48);
         color: white;
     }
 
     /* Style for checkboxes to look like buttons */
     .btn-checkbox {
         display: inline-block;
-        padding: 5px 15px;
+        padding: 4px 12px;
         margin: 2px;
         text-align: center;
         background-color: #f7f7f7;
@@ -157,7 +158,7 @@
 
     /* Change background for checked state */
     .filter-section input[type="checkbox"]:checked + .btn-checkbox {
-        background-color: #007bff; /* Bootstrap primary color */
+        background-color: rgb(166, 48, 48);
         color: white;
     }
 
@@ -170,7 +171,7 @@
     #apply-filters {
         width: 100%;
         padding: 10px;
-        background-color: #0056b3; /* Bootstrap primary color */
+        background-color: rgb(166, 48, 48);
         color: white;
         border: none;
         border-radius: 4px;
@@ -180,9 +181,41 @@
     }
 
     #apply-filters:hover {
-        background-color: #003d82; /* Darker on hover */
+        background-color: rgb(166, 64, 48); /* Darker on hover */
+    }
+    .toggle-button:hover {
+    background-color: #954a4a; /* Darker shade of burgundy on hover */
+    color: white;
+
+    }
+    .tiny-image {
+    width: 20px; /* Adjust the width to your desired size */
+    height: auto; /* Maintain aspect ratio */
+    margin-left: 5px; /* Adjust the margin as needed */
     }
 
+    .autocomplete-dropdown {
+        list-style: none;
+        padding: 0;
+        margin: 0;
+        background: white;
+        border: 1px solid #ccc;
+        border-top: none;
+        position: absolute;
+        width: calc(100% - 2px); /* adjust width as per your input field */
+        max-height: 150px;
+        overflow-y: auto;
+        display: none; /* Hidden by default */
+    }
+
+    .autocomplete-dropdown li {
+        padding: 8px;
+        cursor: pointer;
+    }
+
+    .autocomplete-dropdown li:hover {
+        background-color: #f0f0f0;
+    }
 
     </style>
 
@@ -198,11 +231,11 @@
         </div>
         <div class="navbar-nav ml-auto">
             <!-- Make the Home link refer back to the main page -->
-            <a class="nav-item nav-link" href="#main">Home</a>
-            <a class="nav-item nav-link" href="../templates/michelin_guide.html">Michelin Guide</a>
-            <a class="nav-item nav-link" href="../templates/statistics.html">Statistics</a>
-            <a class="nav-item nav-link" href="../templates/about_us.html">About Us</a>
-            <a class="nav-item nav-link" href="../templates/about_project.html">Project</a>
+            <a class="navbar-title-link" href="#main">Home</a>
+            <a class="navbar-title-link" href="../templates/michelin_guide.html">Michelin Guide</a>
+            <a class="navbar-title-link" href="../templates/statistics.html">Statistics</a>
+            <a class="navbar-title-link" href="../templates/about_us.html">About Us</a>
+            <a class="navbar-title-link" href="../templates/about_project.html">Project</a>
         </div>
     </div>
     
@@ -214,7 +247,7 @@
    <!-- Filter Panel -->
     <div id="filter-panel" class="filter-panel collapsed">
         <div id="filter-content">
-            <h3>Filter Options</h3>
+            <h3 style="color: #800020;">Filter Options</h3>
             <form id="filter-form">
                 <!-- Country Filter -->
                 <div class="filter-section">
@@ -260,20 +293,67 @@
                     <p><strong>Awards:</strong></p>
                     <div>
                         <input type="checkbox" id="bib-gourmand" name="award" value="Bib Gourmand" hidden>
-                        <label for="bib-gourmand" class="btn-checkbox">Bib Gourmand</label>
+                        <label for="bib-gourmand" class="btn-checkbox">Bib Gourmand
+                            <img src="static\images\bib_gourmand.jpg" alt="Bib Gourmand" class="tiny-image">
+                        </label>
                     </div>
                     <div>
                         <input type="checkbox" id="one-star" name="award" value="1 Star" hidden>
-                        <label for="one-star" class="btn-checkbox">1 Star</label>
+                        <label for="one-star" class="btn-checkbox">
+                            1 Star
+                            <img src="static/images/one_star.jpg" alt="Michelin Star" class="tiny-image">
+                        </label>
                     </div>
                     <div>
                         <input type="checkbox" id="two-stars" name="award" value="2 Stars" hidden>
-                        <label for="two-stars" class="btn-checkbox">2 Stars</label>
+                        <label for="two-stars" class="btn-checkbox">
+                            2 Stars
+                            <img src="static/images/one_star.jpg" alt="Michelin Star" class="tiny-image">
+                            <img src="static/images/one_star.jpg" alt="Michelin Star" class="tiny-image">
+                        </label>
                     </div>
                     <div>
                         <input type="checkbox" id="three-stars" name="award" value="3 Stars" hidden>
-                        <label for="three-stars" class="btn-checkbox">3 Stars</label>
+                        <label for="three-stars" class="btn-checkbox">
+                            3 Stars
+                            <img src="static/images/one_star.jpg" alt="Michelin Star" class="tiny-image">
+                            <img src="static/images/one_star.jpg" alt="Michelin Star" class="tiny-image">
+                            <img src="static/images/one_star.jpg" alt="Michelin Star" class="tiny-image">
+                        </label>
                     </div>
+                </div>
+                
+                <!-- Price Filter -->
+                <div class="filter-section">
+                    <label for="price-range">Price Range:</label>
+                    <select id="price-range" name="price-range">
+                        <option value="">Select</option>
+                        <option value="1">$ (Cheap)</option>
+                        <option value="2">$$ (Moderate)</option>
+                        <option value="3">$$$ (Expensive)</option>
+                        <option value="4">$$$$ (Very Expensive)</option>
+                    </select>
+                </div>
+
+                <!-- Cuisine Type Filter with Autocomplete -->
+                <div class="filter-section">
+                    <label for="cuisine-type-input">Cuisine Type:</label>
+                    <input type="text" id="cuisine-type-input" name="cuisine-type" placeholder="Type Cuisine...">
+                    <ul id="cuisine-type-list" class="autocomplete-dropdown"></ul>
+                </div>
+
+                <!-- Ambiance Filter -->
+                <div class="filter-section">
+                    <label for="ambiance">Ambiance:</label>
+                    <select id="ambiance" name="ambiance">
+                        <option value="">Select</option>
+                        <option value="Casual">Casual</option>
+                        <option value="Fine Dining">Fine Dining</option>
+                        <option value="Family-Friendly">Family-Friendly</option>
+                        <option value="Romantic">Romantic</option>
+                        <option value="Cozy">Cozy</option>
+                        <option value="Outdoor">Outdoor</option>
+                    </select>
                 </div>
         
                 <!-- Submit Button -->
@@ -308,10 +388,66 @@
             map.invalidateSize();
         });
 
+        document.addEventListener('DOMContentLoaded', function() {
+            var cuisines = ["Afghan", "African", "Alpine", "Alsatian", "American", "American Contemporary", "Andalusian", 
+                "Apulian", "Argentinian", "Armenian", "Asian", "Asian and Western", "Asian Contemporary", "Asian Influences", 
+                "Asturian", "Australian Contemporary", "Austrian", "Bakery", "Balinese", "Balkan", "Barbecue", "Basque", "Bavarian", 
+                "Beef", "Beijing Cuisine", "Belgian", "Brazilian", "Breton", "British Contemporary", "Bulgogi", "Burgundian", "Burmese", 
+                "Cajun", "Calabrian", "Californian", "Cambodian", "Campanian", "Cantonese", "Cantonese Roast Meats", "Caribbean", 
+                "Castilian", "Catalan", "Central Asian", "Chao Zhou", "Cheese, Fondue and Raclette", "Chicken Specialities", 
+                "Chinese", "Chinese Contemporary", "Chiu Chow", "Chueotang", "Classic Cuisine", "Classic French", "Colombian", "Congee", 
+                "Contemporary", "Corsican", "Country cooking", "Crab Specialities", "Creative", "Creative British", "Creative French", 
+                "Creole", "Croatian", "Cuban", "Cuisine from Abruzzo", "Cuisine from Aveyron", "Cuisine from Basilicata", "Cuisine from Franche-Comté", 
+                "Cuisine from Lazio", "Cuisine from Romagna", "Cuisine from South West France", "Cuisine from the Aosta Valley", "Cuisine from the Marches", 
+                "Cuisine from Valtellina", "Curry", "Czech", "Danish", "Deli", "Dim Sum", "Doganitang", "Dongbei", "Dubu", "Duck Specialities", "Dumplings", 
+                "Dwaeji-gukbap", "Eastern European", "Egyptian", "Emilian", "Emirati Cuisine", "English", "Ethiopian", "European", "European Contemporary", 
+                "Farm to table", "Filipino", "Finnish", "Flemish", "French", "French Contemporary", "Friulian", "Fugu / Pufferfish", "Fujian", "Fusion", 
+                "Galician", "Gastropub", "Gejang", "German", "Gomtang", "Greek", "Grills", "Hainanese", "Hakkanese", "Hang Zhou", "Hawaiian", "Home Cooking",
+                "Hotpot", "Huaiyang", "Hubei", "Hui Cuisine", "Hunanese", "Hunanese and Sichuan", "Hungarian", "Indian", "Indian Vegetarian", "Indonesian", 
+                "Innovative", "International", "Irish", "Isan", "Israeli", "Italian", "Italian and Japanese", "Italian Contemporary", "Italian-American", 
+                "Izakaya", "Jamaican", "Japanese", "Japanese Contemporary", "Japanese Steakhouse", "Jiangzhe", "Jokbal", "Kalguksu", "Korean", "Korean Contemporary", 
+                "Kushiage", "Lamb Specialities", "Lao", "Latin American", "Lebanese", "Ligurian", "Lombardian", "Lyonnaise", "Macanese", "Malaysian", "Mandu", "Mantuan", 
+                "Meats and Grills", "Meats and Seafood", "Mediterranean Cuisine", "Memil-guksu", "Mexican", "Middle Eastern", "Milanese", "Modern British", "Modern Cuisine", 
+                "Modern French", "Moroccan", "Naengmyeon", "Nepali", "Ningbo", "Noodles", "Noodles and Congee", "North African", "North American", "Northern Thai", "Norwegian", 
+                "Obanzai", "Oden", "Okonomiyaki", "Onigiri", "Organic", "Oyster Specialities", "Pakistani", "Peranakan", "Persian", "Peruvian", "Piedmontese", "Pizza", "Polish", 
+                "Pork", "Portuguese", "Provençal", "Puerto Rican", "Ramen", "Regional Cuisine", "Regional European", "Rice Dishes", "Roman", "Russian"]; // Array of cuisines as provided earlier
+
+            var input = document.getElementById('cuisine-type-input');
+            var list = document.getElementById('cuisine-type-list');
+
+            input.addEventListener('input', function() {
+                var value = this.value.trim();
+                list.innerHTML = ''; // Clear previous options
+                if (value) {
+                    list.style.display = 'block';
+                    cuisines.filter(function(cuisine) {
+                        return cuisine.toLowerCase().includes(value.toLowerCase());
+                    }).forEach(function(filteredCuisine) {
+                        var listItem = document.createElement('li');
+                        listItem.textContent = filteredCuisine;
+                        listItem.onclick = function() {
+                            input.value = filteredCuisine; // Set input value to selected option
+                            list.style.display = 'none'; // Hide the list
+                        };
+                        list.appendChild(listItem);
+                    });
+                } else {
+                    list.style.display = 'none';
+                }
+            });
+
+            document.addEventListener('click', function(e) {
+                if (!input.contains(e.target) && !list.contains(e.target)) {
+                    list.style.display = 'none'; // Hide the list when clicking outside
+                }
+            });
+        });
+
+
         document.getElementById('apply-filters').addEventListener('click', function() {
-            var country = document.getElementById('country-input').value;
-            var city = document.getElementById('city-input').value;
-            var name = document.getElementById('name-input').value;
+            var country = document.getElementById('country-input').value || null;
+            var city = document.getElementById('city-input').value || null;
+            var name = document.getElementById('name-input').value || null;
             var awards = [];
             var continents = [];
 
@@ -323,14 +459,37 @@
                 continents.push(continentInput.value);
             });
 
-            // Implement the filterMapData function to handle filtering
-            filterMapData(country, city, continents, name, awards);
+            var priceRange = document.getElementById('price-range').value || null;
+            var cuisineType = document.getElementById('cuisine-type-input').value || null; 
+            var ambiance = document.getElementById('ambiance').value || null;
+
+            filterMapData({
+                country: country,
+                city: city,
+                continents: continents.length > 0 ? continents : null,
+                name: name,
+                awards: awards.length > 0 ? awards : null,
+                priceRange: priceRange,
+                ambiance: ambiance,
+                cuisineType: cuisineType 
+            });
         });
 
-        function filterMapData(country, city, continents, name, awards) {
-            // Logic to filter map data based on country, city, continent, name, and awards
-            console.log('Filtering for country:', country, 'city:', city, 'continents:', continents, 'name:', name, 'and awards:', awards);
-            // Your code to update the map based on filters goes here
+        function filterMapData(filters) {
+            console.log('Applying filters:', filters);
+
+            // Implement the actual filtering logic here.
+            // You can access each filter like filters.country, filters.city, etc.
+            // Only apply filters that are not null.
+
+            // Example of checking and applying a filter:
+            // if (filters.country) {
+            //     // apply country filter
+            // }
+            
+            // Continue similarly for other filters.
+
+            // Update the map or data display based on active filters
         }
 
     </script>
