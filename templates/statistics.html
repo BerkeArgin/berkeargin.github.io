@@ -377,7 +377,7 @@
                 .padding(0.1)
                 .range([0, height]);
 
-            const color = d3.scaleOrdinal(d3.schemeCategory10);
+            const color = d3.scaleOrdinal(d3.schemeCategory20);
 
             const tooltip = d3.select("body").append("div")
                 .attr("class", "tooltip");
@@ -410,7 +410,7 @@
                     .attr("height", y.bandwidth())
                     .attr("x", 0)
                     .attr("width", d => x(d.Listings))
-                    .attr("fill", d => color(d.City))
+                    .attr("fill", (d, i) => color(i))
                     .on("mouseover", function(event, d) {
                         tooltip.transition().duration(200).style("opacity", .9);
                         tooltip.html(d.City + ": " + d.Listings)
