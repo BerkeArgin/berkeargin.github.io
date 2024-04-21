@@ -132,7 +132,7 @@
             width: 80%;
             padding: 20px;
             background-color: #f7c0c0;  
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); 
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);  
             border-radius: 8px;  
         }
 
@@ -170,6 +170,9 @@
             pointer-events: none;
             opacity: 0;
         }
+
+
+
     </style>
 </head>
 <body>
@@ -308,50 +311,50 @@
         
         document.addEventListener("DOMContentLoaded", function() {
             const dataHorizontal = [
-                {"Country": "France", "Listings": 1016, "Continent": "Europe"},
-                {"Country": "Japan", "Listings": 733, "Continent": "Asia"},
-                {"Country": "Italy", "Listings": 651, "Continent": "Europe"},
-                {"Country": "USA", "Listings": 600, "Continent": "North America"},
-                {"Country": "Germany", "Listings": 581, "Continent": "Europe"},
-                {"Country": "Spain", "Listings": 500, "Continent": "Europe"},
-                {"Country": "United Kingdom", "Listings": 275, "Continent": "Europe"},
-                {"Country": "Belgium", "Listings": 270, "Continent": "Europe"},
-                {"Country": "Switzerland", "Listings": 257, "Continent": "Europe"},
-                {"Country": "China Mainland", "Listings": 242, "Continent": "Asia"},
-                {"Country": "Thailand", "Listings": 231, "Continent": "Asia"},
-                {"Country": "Netherlands", "Listings": 219, "Continent": "Europe"},
-                {"Country": "Taiwan", "Listings": 182, "Continent": "Asia"},
-                {"Country": "Hong Kong SAR China", "Listings": 139, "Continent": "Asia"},
-                {"Country": "Singapore", "Listings": 132, "Continent": "Asia"},
-                {"Country": "South Korea", "Listings": 89, "Continent": "Asia"},
-                {"Country": "Portugal", "Listings": 73, "Continent": "Europe"},
-                {"Country": "Canada", "Listings": 61, "Continent": "North America"},
-                {"Country": "Malaysia", "Listings": 50, "Continent": "Asia"},
-                {"Country": "Brazil", "Listings": 47, "Continent": "South America"},
-                {"Country": "Denmark", "Listings": 47, "Continent": "Europe"},
-                {"Country": "United Arab Emirates", "Listings": 41, "Continent": "Asia"},
-                {"Country": "Türkiye", "Listings": 38, "Continent": "Europe"},
-                {"Country": "Vietnam", "Listings": 33, "Continent": "Asia"},
-                {"Country": "Ireland", "Listings": 33, "Continent": "Europe"},
-                {"Country": "Sweden", "Listings": 29, "Continent": "Europe"},
-                {"Country": "Austria", "Listings": 25, "Continent": "Europe"},
-                {"Country": "Croatia", "Listings": 25, "Continent": "Europe"},
-                {"Country": "Macau SAR China", "Listings": 22, "Continent": "Asia"},
-                {"Country": "Norway", "Listings": 21, "Continent": "Europe"},
-                {"Country": "Greece", "Listings": 17, "Continent": "Europe"},
-                {"Country": "Slovenia", "Listings": 16, "Continent": "Europe"},
-                {"Country": "Luxembourg", "Listings": 16, "Continent": "Europe"},
-                {"Country": "Hungary", "Listings": 15, "Continent": "Europe"},
-                {"Country": "Argentina", "Listings": 14, "Continent": "South America"},
-                {"Country": "Poland", "Listings": 10, "Continent": "Europe"},
-                {"Country": "Malta", "Listings": 10, "Continent": "Europe"},
-                {"Country": "Finland", "Listings": 9, "Continent": "Europe"},
-                {"Country": "Estonia", "Listings": 8, "Continent": "Europe"},
-                {"Country": "Czech Republic", "Listings": 7, "Continent": "Europe"},
-                {"Country": "Latvia", "Listings": 4, "Continent": "Europe"},
-                {"Country": "Iceland", "Listings": 3, "Continent": "Europe"},
-                {"Country": "Serbia", "Listings": 2, "Continent": "Europe"},
-                {"Country": "Andorra", "Listings": 1, "Continent": "Europe"}
+                {"City": "France", "Listings": 1016, "Continent": "Europe"},
+                {"City": "Japan", "Listings": 733, "Continent": "Asia"},
+                {"City": "Italy", "Listings": 651, "Continent": "Europe"},
+                {"City": "USA", "Listings": 600, "Continent": "North America"},
+                {"City": "Germany", "Listings": 581, "Continent": "Europe"},
+                {"City": "Spain", "Listings": 500, "Continent": "Europe"},
+                {"City": "United Kingdom", "Listings": 275, "Continent": "Europe"},
+                {"City": "Belgium", "Listings": 270, "Continent": "Europe"},
+                {"City": "Switzerland", "Listings": 257, "Continent": "Europe"},
+                {"City": "China Mainland", "Listings": 242, "Continent": "Asia"},
+                {"City": "Thailand", "Listings": 231, "Continent": "Asia"},
+                {"City": "Netherlands", "Listings": 219, "Continent": "Europe"},
+                {"City": "Taiwan", "Listings": 182, "Continent": "Asia"},
+                {"City": "Hong Kong SAR China", "Listings": 139, "Continent": "Asia"},
+                {"City": "Singapore", "Listings": 132, "Continent": "Asia"},
+                {"City": "South Korea", "Listings": 89, "Continent": "Asia"},
+                {"City": "Portugal", "Listings": 73, "Continent": "Europe"},
+                {"City": "Canada", "Listings": 61, "Continent": "North America"},
+                {"City": "Malaysia", "Listings": 50, "Continent": "Asia"},
+                {"City": "Brazil", "Listings": 47, "Continent": "South America"},
+                {"City": "Denmark", "Listings": 47, "Continent": "Europe"},
+                {"City": "United Arab Emirates", "Listings": 41, "Continent": "Asia"},
+                {"City": "Türkiye", "Listings": 38, "Continent": "Europe"},
+                {"City": "Vietnam", "Listings": 33, "Continent": "Asia"},
+                {"City": "Ireland", "Listings": 33, "Continent": "Europe"},
+                {"City": "Sweden", "Listings": 29, "Continent": "Europe"},
+                {"City": "Austria", "Listings": 25, "Continent": "Europe"},
+                {"City": "Croatia", "Listings": 25, "Continent": "Europe"},
+                {"City": "Macau SAR China", "Listings": 22, "Continent": "Asia"},
+                {"City": "Norway", "Listings": 21, "Continent": "Europe"},
+                {"City": "Greece", "Listings": 17, "Continent": "Europe"},
+                {"City": "Slovenia", "Listings": 16, "Continent": "Europe"},
+                {"City": "Luxembourg", "Listings": 16, "Continent": "Europe"},
+                {"City": "Hungary", "Listings": 15, "Continent": "Europe"},
+                {"City": "Argentina", "Listings": 14, "Continent": "South America"},
+                {"City": "Poland", "Listings": 10, "Continent": "Europe"},
+                {"City": "Malta", "Listings": 10, "Continent": "Europe"},
+                {"City": "Finland", "Listings": 9, "Continent": "Europe"},
+                {"City": "Estonia", "Listings": 8, "Continent": "Europe"},
+                {"City": "Czech Republic", "Listings": 7, "Continent": "Europe"},
+                {"City": "Latvia", "Listings": 4, "Continent": "Europe"},
+                {"City": "Iceland", "Listings": 3, "Continent": "Europe"},
+                {"City": "Serbia", "Listings": 2, "Continent": "Europe"},
+                {"City": "Andorra", "Listings": 1, "Continent": "Europe"}
             ];
 
             let activeContinents = new Set();
@@ -385,7 +388,7 @@
                 filteredData = filteredData.sort((a, b) => b.Listings - a.Listings).slice(0, 10);
 
                 x.domain([0, d3.max(filteredData, d => d.Listings)]);
-                y.domain(filteredData.map(d => d.Country));
+                y.domain(filteredData.map(d => d.City));
 
                 svg.selectAll(".bar").remove();
                 svg.selectAll(".axis").remove();
@@ -403,14 +406,14 @@
                     .data(filteredData)
                     .enter().append("rect")
                     .attr("class", "bar")
-                    .attr("y", d => y(d.Country))
+                    .attr("y", d => y(d.City))
                     .attr("height", y.bandwidth())
                     .attr("x", 0)
                     .attr("width", d => x(d.Listings))
-                    .attr("fill", d => color(d.Country))
+                    .attr("fill", d => color(d.City))
                     .on("mouseover", function(event, d) {
                         tooltip.transition().duration(200).style("opacity", .9);
-                        tooltip.html(d.Country + ": " + d.Listings)
+                        tooltip.html(d.City + ": " + d.Listings)
                             .style("left", (event.pageX + 5) + "px")
                             .style("top", (event.pageY - 28) + "px");
                     })
