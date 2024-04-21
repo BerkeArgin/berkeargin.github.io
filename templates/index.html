@@ -8,7 +8,7 @@
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@700&display=swap" rel="stylesheet">
-    <script src="http://d3js.org/d3.v3.min.js" type="text/javascript"></script>
+    <script src="http://d3js.org/d3.v6.min.js" type="text/javascript"></script>
     <script src="http://cdn.leafletjs.com/leaflet-0.7/leaflet.js"></script>
     <script src='https://api.tiles.mapbox.com/mapbox.js/v1.6.4/mapbox.js'></script>
     <style>
@@ -366,28 +366,7 @@
 
     <script src="../static/map.js"></script>
     <script>
-        document.getElementById('toggle-filter-button').addEventListener('click', function() {
-            var panel = document.getElementById('filter-panel');
-            var mapArea = document.getElementById('map');
-            var toggleButton = document.getElementById('toggle-filter-button');
-            var panelWidth = '300px'; // Set the panel width
         
-            if (panel.classList.contains('collapsed')) {
-                panel.style.right = '0'; // Move panel into view
-                mapArea.style.width = 'calc(100% - ' + panelWidth + ')'; // Adjust map width
-                toggleButton.style.right = panelWidth; // Move button with panel
-                panel.classList.remove('collapsed');
-            } else {
-                panel.style.right = '-' + panelWidth; // Move panel out of view
-                mapArea.style.width = '100%'; // Map takes full width
-                toggleButton.style.right = '0'; // Button sticks to the right edge
-                panel.classList.add('collapsed');
-            }
-        
-            // Trigger a resize event on the map so Leaflet can adjust to the new dimensions
-            map.invalidateSize();
-        });
-
         document.addEventListener('DOMContentLoaded', function() {
             var cuisines = ["Afghan", "African", "Alpine", "Alsatian", "American", "American Contemporary", "Andalusian", 
                 "Apulian", "Argentinian", "Armenian", "Asian", "Asian and Western", "Asian Contemporary", "Asian Influences", 
@@ -442,55 +421,6 @@
                 }
             });
         });
-
-
-        document.getElementById('apply-filters').addEventListener('click', function() {
-            var country = document.getElementById('country-input').value || null;
-            var city = document.getElementById('city-input').value || null;
-            var name = document.getElementById('name-input').value || null;
-            var awards = [];
-            var continents = [];
-
-            document.querySelectorAll('#filter-form input[name="award"]:checked').forEach(function(awardInput) {
-                awards.push(awardInput.value);
-            });
-
-            document.querySelectorAll('#filter-form input[name="continent"]:checked').forEach(function(continentInput) {
-                continents.push(continentInput.value);
-            });
-
-            var priceRange = document.getElementById('price-range').value || null;
-            var cuisineType = document.getElementById('cuisine-type-input').value || null; 
-            var ambiance = document.getElementById('ambiance').value || null;
-
-            filterMapData({
-                country: country,
-                city: city,
-                continents: continents.length > 0 ? continents : null,
-                name: name,
-                awards: awards.length > 0 ? awards : null,
-                priceRange: priceRange,
-                ambiance: ambiance,
-                cuisineType: cuisineType 
-            });
-        });
-
-        function filterMapData(filters) {
-            console.log('Applying filters:', filters);
-
-            // Implement the actual filtering logic here.
-            // You can access each filter like filters.country, filters.city, etc.
-            // Only apply filters that are not null.
-
-            // Example of checking and applying a filter:
-            // if (filters.country) {
-            //     // apply country filter
-            // }
-            
-            // Continue similarly for other filters.
-
-            // Update the map or data display based on active filters
-        }
 
     </script>
     
