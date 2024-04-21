@@ -121,11 +121,32 @@ function setupMarkerInteractions(marker, latLng, datapoint) {
 }
 
 function createPopupContent(datapoint) {
-    return `<h2>${datapoint.properties.Name}</h2>
-            <p><strong>Country:</strong> ${datapoint.properties.Country}</p>
-            <p><strong>City:</strong> ${datapoint.properties.City}</p>
-            <p><strong>Award:</strong> ${datapoint.properties.Award}</p>`;
+    const awardImageHtml = getAwardImage(datapoint.properties.Award);
+    return `
+        <h2>${datapoint.properties.Name}</h2>
+        <p><strong>Country:</strong> ${datapoint.properties.Country}</p>
+        <p><strong>City:</strong> ${datapoint.properties.City}</p>
+        <p><strong>Award:</strong> ${awardImageHtml}</p>
+    `;
 }
+
+function getAwardImage(award) {
+    const baseImgPath = "../static/images/";
+    // Define a structure containing filename and specific width for each award type
+    const awards = {
+        "Bib Gourmand": { file: "bib_gourmand.jpg", width: 30 },
+        "1 Star": { file: "1star.svg.png", width: 20 },
+        "2 Stars": { file: "2stars.svg.png", width: 40 },
+        "3 Stars": { file: "3stars.svg.png", width: 60 }
+    };
+
+    const awardInfo = awards[award] || { file: "website_logo.jpg", width: 20 }; // Provide a default award icon and width
+    const altText = `${award || 'Unavailable'} Award`; // Handle missing awards gracefully
+
+    // Construct the image HTML string with dynamic width and consistent height
+    return `<img src="${baseImgPath + awardInfo.file}" alt="${altText}" style="width: ${awardInfo.width}px; height: 20px;"> ${award || 'No Award'}`;
+}
+
 
 function getFillColor(award) {
     const colors = {
