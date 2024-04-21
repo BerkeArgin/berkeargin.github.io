@@ -58,16 +58,24 @@
             margin-top: 20px;
             color: #a63030;
         }
+        .tv-frame {
+            width: calc(80% + 60px); /* Video genişliğinden biraz daha geniş */
+            margin: 40px auto; /* Düzgün hizalama için */
+            background-color: #333; /* Modern bir gri tonu */
+            border-radius: 20px; /* Köşeleri yuvarlat */
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5); /* Gölge efekti */
+            padding: 30px; /* İçerideki videoya boşluk bırak */
+            box-sizing: border-box; /* Padding'i genişlik hesaplamalarına dahil et */
+            border: 5px solid rgba(255, 255, 255, 0.2); /* İnce beyaz parlaklık */
+        }
+
         .video-responsive {
             overflow: hidden;
-            padding-bottom: 56.25%;
+            padding-bottom: 56.25%; /* 16:9 oranını koru */
             position: relative;
             height: 0;
-            margin-top: 20px;
-            width: 80%; /* Limit video width to not cover the whole site width */
-            margin-left: auto;
-            margin-right: auto;
         }
+
         .video-responsive iframe {
             left: 0;
             top: 0;
@@ -75,6 +83,7 @@
             width: 100%;
             position: absolute;
         }
+
         .text-content {
             padding: 20px;
             text-align: justify;
@@ -118,8 +127,10 @@
         <p>Apart from stars, the Michelin Guide also recognizes smaller establishments that provide good food at moderate prices with a Bib Gourmand designation. This award highlights restaurants offering "good meals at reasonable prices," a concept that varies from city to city. Over the decades, the Michelin Guide has expanded globally, influencing restaurant trends and elevating culinary standards around the world. However, its ratings can also be a source of controversy, as some critics argue that the criteria can be overly rigid, lacking in transparency, or biased towards certain styles of cooking or dining experiences. Regardless, the impact of a Michelin star on a restaurant's business and reputation is profound and indisputable.</p>
     </div>
     <p class="video-title">To learn more about Michelin Guide ratings, watch this video:</p>
-    <div class="video-responsive">
-        <iframe src="https://www.youtube.com/embed/tceSuaTbcU8" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+    <div class="tv-frame">
+        <div class="video-responsive">
+            <iframe src="https://www.youtube.com/embed/tceSuaTbcU8" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+        </div>
     </div>
 </body>
 </html>
