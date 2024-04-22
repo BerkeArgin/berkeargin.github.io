@@ -367,8 +367,8 @@
     <script src="../static/map.js"></script>
     <script>
         
-        document.addEventListener('DOMContentLoaded', function() {
-            var cuisines = ["Afghan", "African", "Alpine", "Alsatian", "American", "American Contemporary", "Andalusian", 
+        document.addEventListener('DOMContentLoaded', () => {
+            const cuisines = ["Afghan", "African", "Alpine", "Alsatian", "American", "American Contemporary", "Andalusian", 
                 "Apulian", "Argentinian", "Armenian", "Asian", "Asian and Western", "Asian Contemporary", "Asian Influences", 
                 "Asturian", "Australian Contemporary", "Austrian", "Bakery", "Balinese", "Balkan", "Barbecue", "Basque", "Bavarian", 
                 "Beef", "Beijing Cuisine", "Belgian", "Brazilian", "Breton", "British Contemporary", "Bulgogi", "Burgundian", "Burmese", 
@@ -389,38 +389,38 @@
                 "Meats and Grills", "Meats and Seafood", "Mediterranean Cuisine", "Memil-guksu", "Mexican", "Middle Eastern", "Milanese", "Modern British", "Modern Cuisine", 
                 "Modern French", "Moroccan", "Naengmyeon", "Nepali", "Ningbo", "Noodles", "Noodles and Congee", "North African", "North American", "Northern Thai", "Norwegian", 
                 "Obanzai", "Oden", "Okonomiyaki", "Onigiri", "Organic", "Oyster Specialities", "Pakistani", "Peranakan", "Persian", "Peruvian", "Piedmontese", "Pizza", "Polish", 
-                "Pork", "Portuguese", "Provençal", "Puerto Rican", "Ramen", "Regional Cuisine", "Regional European", "Rice Dishes", "Roman", "Russian"]; // Array of cuisines as provided earlier
+                "Pork", "Portuguese", "Provençal", "Puerto Rican", "Ramen", "Regional Cuisine", "Regional European", "Rice Dishes", "Roman", "Russian"];
+            
+            const input = document.getElementById('cuisine-type-input');
+            const list = document.getElementById('cuisine-type-list');
 
-            var input = document.getElementById('cuisine-type-input');
-            var list = document.getElementById('cuisine-type-list');
-
-            input.addEventListener('input', function() {
-                var value = this.value.trim();
-                list.innerHTML = ''; // Clear previous options
+            input.addEventListener('input', () => {
+                const value = input.value.trim();
+                list.innerHTML = '';
                 if (value) {
                     list.style.display = 'block';
-                    cuisines.filter(function(cuisine) {
-                        return cuisine.toLowerCase().includes(value.toLowerCase());
-                    }).forEach(function(filteredCuisine) {
-                        var listItem = document.createElement('li');
-                        listItem.textContent = filteredCuisine;
-                        listItem.onclick = function() {
-                            input.value = filteredCuisine; // Set input value to selected option
-                            list.style.display = 'none'; // Hide the list
-                        };
-                        list.appendChild(listItem);
-                    });
+                    cuisines.filter(cuisine => cuisine.toLowerCase().includes(value.toLowerCase()))
+                            .forEach(filteredCuisine => {
+                                const listItem = document.createElement('li');
+                                listItem.textContent = filteredCuisine;
+                                listItem.onclick = () => {
+                                    input.value = filteredCuisine;
+                                    list.style.display = 'none';
+                                };
+                                list.appendChild(listItem);
+                            });
                 } else {
                     list.style.display = 'none';
                 }
             });
 
-            document.addEventListener('click', function(e) {
+            document.addEventListener('click', (e) => {
                 if (!input.contains(e.target) && !list.contains(e.target)) {
                     list.style.display = 'none'; // Hide the list when clicking outside
                 }
             });
         });
+
 
     </script>
     
