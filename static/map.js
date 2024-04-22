@@ -78,7 +78,7 @@ const cityCoordinates = {
     'Hong Kong': [22.3193, 114.1694], 'Singapore': [1.3521, 103.8198], 'Seoul': [37.5665, 126.9780],
     'Lisbon': [38.7223, -9.1393], 'Ottawa': [45.4215, -75.6972], 'Kuala Lumpur': [3.1390, 101.6869],
     'Brasília': [-15.8267, -47.9218], 'Copenhagen': [55.6761, 12.5683], 'Abu Dhabi': [24.4539, 54.3773],
-    'Istanbul': [39.9334, 32.8597], 'Hanoi': [21.0285, 105.8542], 'Dublin': [53.3498, -6.2603],
+    'Istanbul': [41.0082, 28.9784], 'Hanoi': [21.0285, 105.8542], 'Dublin': [53.3498, -6.2603],
     'Stockholm': [59.3293, 18.0686], 'Vienna': [48.2082, 16.3738], 'Zagreb': [45.8150, 15.9819],
     'Macau': [22.1987, 113.5439], 'Porto': [41.1579, -8.6291], 'Bodrum': [37.0343, 27.4305],
     'Oslo': [59.9139, 10.7522], 'Athens': [37.9838, 23.7275], 'Ljubljana': [46.0569, 14.5058],
@@ -161,7 +161,7 @@ function clearMapEntries() {
 function updateMapCenter() {
     if (currentFilters.city && currentFilters.city in cityCoordinates) {
         // Zoom closer for city
-        map.setView(cityCoordinates[currentFilters.city], 12);
+        map.setView(cityCoordinates[currentFilters.city], 11);
     } else if (currentFilters.country && countryDetails[currentFilters.country]) {
         // Country level zoom
         map.setView(countryDetails[currentFilters.country].coords, countryDetails[currentFilters.country].zoom);
