@@ -60,7 +60,6 @@ const countryDetails = {
     'Andorra': { coords: [42.5063, 1.5218], zoom: 10 }
 };
 
-
 const cityCoordinates = {
     'Paris': [48.8566, 2.3522], 'Lyon': [45.7640, 4.8357], 'Marseille': [43.2965, 5.3698],
     'Tokyo': [35.6895, 139.6917], 'Osaka': [34.6937, 135.5023], 'Kyoto': [35.0116, 135.7681],
