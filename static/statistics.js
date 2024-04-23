@@ -3,6 +3,7 @@
 document.addEventListener("DOMContentLoaded", function() {
     initVerticalChart();
     initHorizontalChart();
+    SecondHorizontalChart();
 });
 
 function initVerticalChart() {
@@ -26,6 +27,62 @@ function initVerticalChart() {
 
     setupVerticalChartAxes(svg, data, width, height);
     addVerticalChartBars(svg, data, width, height);
+}
+function setupHorizontalChartAxes(svg, data, width, height) {
+    const x = d3.scaleLinear()
+        .domain([0, d3.max(Object.values(data))])
+        .range([0, width]);
+
+    const y = d3.scaleBand()
+        .domain(Object.keys(data))
+        .range([0, height])
+        .padding(0.1);
+
+    svg.append("g")
+        .attr("class", "axis axis--y")
+        .call(d3.axisLeft(y).tickSize(0)); // Remove tick lines
+
+    svg.append("g")
+        .attr("class", "axis axis--x")
+        .attr("transform", `translate(0,${height})`)
+        .call(d3.axisBottom(x).ticks(5).tickSize(-height).tickFormat(d3.format("d"))); // Adjust tickSize to -height
+
+}
+
+
+function addHorizontalChartBars(svg, data, width, height) {
+    const x = d3.scaleLinear()
+        .domain([0, d3.max(Object.values(data))])
+        .range([0, width]);
+
+    const y = d3.scaleBand()
+        .domain(Object.keys(data))
+        .range([0, height])
+        .padding(0.1);
+
+    const color = d3.scaleOrdinal(d3.schemeCategory10);
+
+    const tooltip = d3.select("body").append("div")
+        .attr("class", "tooltip");
+
+    svg.selectAll(".bar")
+        .data(Object.entries(data))
+        .enter().append("rect")
+        .attr("class", "bar")
+        .attr("x", 0)
+        .attr("y", d => y(d[0]))
+        .attr("width", d => x(d[1]))
+        .attr("height", y.bandwidth())
+        .attr("fill", (d, i) => color(i))
+        .on("mouseover", function(event, d) {
+            tooltip.transition().duration(200).style("opacity", .9);
+            tooltip.html(`${d[0]}: ${d[1]}`)
+                .style("left", (event.pageX + 5) + "px")
+                .style("top", (event.pageY - 28) + "px");
+        })
+        .on("mouseout", function(d) {
+            tooltip.transition().duration(500).style("opacity", 0);
+        });
 }
 
 function setupVerticalChartAxes(svg, data, width, height) {
@@ -92,7 +149,49 @@ function hideTooltip(tooltip) {
         .duration(500)
         .style("opacity", 0);
 }
+function SecondHorizontalChart() {
+    const cuisineData = {
+        "Modern Cuisine": 918,
+        "Creative": 384,
+        "Japanese": 278,
+        "Traditional Cuisine": 203,
+        "Street Food": 168,
+        "French": 135,
+        "Contemporary": 134,
+        "Italian": 119,
+        "Cantonese": 115,
+        "Creative, Modern Cuisine": 90,
+        "Thai": 80,
+        "Classic Cuisine": 78,
+        "Sushi": 74,
+        "Noodles": 72,
+        "Modern French": 71,
+        "Modern British": 68,
+        "Modern Cuisine, Creative": 67,
+        "Seafood": 66,
+        "Chinese": 57,
+        "Farm to table": 53,
+        "Taiwanese": 52,
+        "Innovative": 51,
+        "French Contemporary": 50,
+        "Japanese, Sushi": 49,
+        "Creative, Contemporary": 49
+    };
+    
+    const margin = {top: 20, right: 30, bottom: 40, left: 180},
+    width = 960 - margin.left - margin.right,
+    height = 500 - margin.top - margin.bottom;
 
+    const svg = d3.select("#second-horizontal-chart") // Select the container for the second horizontal chart
+        .append("svg")
+        .attr("width", width + margin.left + margin.right)
+        .attr("height", height + margin.top + margin.bottom)
+        .append("g")
+        .attr("transform", `translate(${margin.left},${margin.top})`);
+    
+    setupHorizontalChartAxes(svg, cuisineData, width, height);
+    addHorizontalChartBars(svg, cuisineData, width, height);
+}
 function initHorizontalChart() {
     const dataHorizontal = [
         {"City": "France", "Listings": 1016, "Continent": "Europe"},
@@ -181,11 +280,12 @@ function initHorizontalChart() {
             .attr("class", "axis axis--y")
             .call(d3.axisLeft(y));
 
+
         svg.append("g")
             .attr("class", "axis axis--x")
-            .attr("transform", "translate(0," + height + ")")
-            .call(d3.axisBottom(x));
-
+            .attr("transform", `translate(0,${height})`)
+            .call(d3.axisBottom(x).ticks(5).tickSize(-height).tickFormat(d3.format("d"))); // Adjust tickSize to -height
+    
         svg.selectAll(".bar")
             .data(filteredData)
             .enter().append("rect")
@@ -205,6 +305,8 @@ function initHorizontalChart() {
                 tooltip.transition().duration(500).style("opacity", 0);
             });
     }
+
+    
 
     document.querySelectorAll(".filter-btn").forEach(btn => {
         btn.addEventListener("click", function() {
