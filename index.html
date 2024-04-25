@@ -217,6 +217,51 @@
         background-color: #f0f0f0;
     }
 
+    .selected-cuisines {
+        display: flex;
+        flex-wrap: wrap;
+        margin-top: 10px;
+    }
+
+    .cuisine-chip {
+        background-color: #d10000; /* Red background */
+        color: white; /* White text */
+        padding: 5px 10px;
+        margin-right: 5px;
+        margin-bottom: 5px;
+        border-radius: 5px;
+        display: inline-flex;
+        align-items: center;
+    }
+
+    .close-btn {
+        margin-left: 8px;
+        cursor: pointer;
+        display: inline-block;
+        padding: 0 4px;
+    }
+
+    .suggestions-list {
+        border: 1px solid #ccc;
+        border-top: none;
+        position: absolute;
+        z-index: 1000;
+        width: calc(100% - 2px);
+        background: white;
+        max-height: 200px;
+        overflow-y: auto;
+    }
+
+    .suggestion-item {
+        padding: 8px;
+        cursor: pointer;
+        text-align: left;
+    }
+
+    .suggestion-item:hover {
+        background-color: #f0f0f0;
+    }
+
     </style>
 
 </head>
@@ -323,6 +368,14 @@
                     </div>
                 </div>
                 
+                <!-- Cuisine Filter with Multiple Selection -->
+                <div class="filter-section">
+                    <label for="cuisine-input">Cuisine:</label>
+                    <input type="text" id="cuisine-input" name="cuisine" placeholder="Type Cuisine ..." autocomplete="on">
+                    <div id="cuisine-list" class="suggestions-list"></div>
+                    <div id="selected-cuisines" class="selected-cuisines"></div> <!-- Container for selected cuisines -->
+                </div>
+
                 <!-- Price Filter -->
                 <div class="filter-section">
                     <label for="price-range">Price Range:</label>
@@ -333,13 +386,6 @@
                         <option value="3">$$$ (Expensive)</option>
                         <option value="4">$$$$ (Very Expensive)</option>
                     </select>
-                </div>
-
-                <!-- Cuisine Type Filter with Autocomplete -->
-                <div class="filter-section">
-                    <label for="cuisine-type-input">Cuisine Type:</label>
-                    <input type="text" id="cuisine-type-input" name="cuisine-type" placeholder="Type Cuisine...">
-                    <ul id="cuisine-type-list" class="autocomplete-dropdown"></ul>
                 </div>
 
                 <!-- Ambiance Filter -->
@@ -355,7 +401,7 @@
                         <option value="Outdoor">Outdoor</option>
                     </select>
                 </div>
-        
+
                 <!-- Submit Button -->
                 <div class="filter-section">
                     <button type="button" id="apply-filters" class="btn btn-primary">Apply Filters</button>
@@ -365,64 +411,6 @@
     </div>
 
     <script src="../static/map.js"></script>
-    <script>
-        
-        document.addEventListener('DOMContentLoaded', () => {
-            const cuisines = ["Afghan", "African", "Alpine", "Alsatian", "American", "American Contemporary", "Andalusian", 
-                "Apulian", "Argentinian", "Armenian", "Asian", "Asian and Western", "Asian Contemporary", "Asian Influences", 
-                "Asturian", "Australian Contemporary", "Austrian", "Bakery", "Balinese", "Balkan", "Barbecue", "Basque", "Bavarian", 
-                "Beef", "Beijing Cuisine", "Belgian", "Brazilian", "Breton", "British Contemporary", "Bulgogi", "Burgundian", "Burmese", 
-                "Cajun", "Calabrian", "Californian", "Cambodian", "Campanian", "Cantonese", "Cantonese Roast Meats", "Caribbean", 
-                "Castilian", "Catalan", "Central Asian", "Chao Zhou", "Cheese, Fondue and Raclette", "Chicken Specialities", 
-                "Chinese", "Chinese Contemporary", "Chiu Chow", "Chueotang", "Classic Cuisine", "Classic French", "Colombian", "Congee", 
-                "Contemporary", "Corsican", "Country cooking", "Crab Specialities", "Creative", "Creative British", "Creative French", 
-                "Creole", "Croatian", "Cuban", "Cuisine from Abruzzo", "Cuisine from Aveyron", "Cuisine from Basilicata", "Cuisine from Franche-Comté", 
-                "Cuisine from Lazio", "Cuisine from Romagna", "Cuisine from South West France", "Cuisine from the Aosta Valley", "Cuisine from the Marches", 
-                "Cuisine from Valtellina", "Curry", "Czech", "Danish", "Deli", "Dim Sum", "Doganitang", "Dongbei", "Dubu", "Duck Specialities", "Dumplings", 
-                "Dwaeji-gukbap", "Eastern European", "Egyptian", "Emilian", "Emirati Cuisine", "English", "Ethiopian", "European", "European Contemporary", 
-                "Farm to table", "Filipino", "Finnish", "Flemish", "French", "French Contemporary", "Friulian", "Fugu / Pufferfish", "Fujian", "Fusion", 
-                "Galician", "Gastropub", "Gejang", "German", "Gomtang", "Greek", "Grills", "Hainanese", "Hakkanese", "Hang Zhou", "Hawaiian", "Home Cooking",
-                "Hotpot", "Huaiyang", "Hubei", "Hui Cuisine", "Hunanese", "Hunanese and Sichuan", "Hungarian", "Indian", "Indian Vegetarian", "Indonesian", 
-                "Innovative", "International", "Irish", "Isan", "Israeli", "Italian", "Italian and Japanese", "Italian Contemporary", "Italian-American", 
-                "Izakaya", "Jamaican", "Japanese", "Japanese Contemporary", "Japanese Steakhouse", "Jiangzhe", "Jokbal", "Kalguksu", "Korean", "Korean Contemporary", 
-                "Kushiage", "Lamb Specialities", "Lao", "Latin American", "Lebanese", "Ligurian", "Lombardian", "Lyonnaise", "Macanese", "Malaysian", "Mandu", "Mantuan", 
-                "Meats and Grills", "Meats and Seafood", "Mediterranean Cuisine", "Memil-guksu", "Mexican", "Middle Eastern", "Milanese", "Modern British", "Modern Cuisine", 
-                "Modern French", "Moroccan", "Naengmyeon", "Nepali", "Ningbo", "Noodles", "Noodles and Congee", "North African", "North American", "Northern Thai", "Norwegian", 
-                "Obanzai", "Oden", "Okonomiyaki", "Onigiri", "Organic", "Oyster Specialities", "Pakistani", "Peranakan", "Persian", "Peruvian", "Piedmontese", "Pizza", "Polish", 
-                "Pork", "Portuguese", "Provençal", "Puerto Rican", "Ramen", "Regional Cuisine", "Regional European", "Rice Dishes", "Roman", "Russian"];
-            
-            const input = document.getElementById('cuisine-type-input');
-            const list = document.getElementById('cuisine-type-list');
-
-            input.addEventListener('input', () => {
-                const value = input.value.trim();
-                list.innerHTML = '';
-                if (value) {
-                    list.style.display = 'block';
-                    cuisines.filter(cuisine => cuisine.toLowerCase().includes(value.toLowerCase()))
-                            .forEach(filteredCuisine => {
-                                const listItem = document.createElement('li');
-                                listItem.textContent = filteredCuisine;
-                                listItem.onclick = () => {
-                                    input.value = filteredCuisine;
-                                    list.style.display = 'none';
-                                };
-                                list.appendChild(listItem);
-                            });
-                } else {
-                    list.style.display = 'none';
-                }
-            });
-
-            document.addEventListener('click', (e) => {
-                if (!input.contains(e.target) && !list.contains(e.target)) {
-                    list.style.display = 'none'; // Hide the list when clicking outside
-                }
-            });
-        });
-
-
-    </script>
     
 </body>
 </html>
