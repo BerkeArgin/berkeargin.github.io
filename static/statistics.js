@@ -2,10 +2,31 @@
 
 document.addEventListener("DOMContentLoaded", function() {
     initVerticalChart();
+    facilities();
     initHorizontalChart();
     SecondHorizontalChart();
     MapChart();
+    createBibGourmandTable();
+    adjustContainerSizes();
+
 });
+
+function adjustContainerSizes() {
+    const containers = document.querySelectorAll('.chart-container');
+    containers.forEach(container => {
+        const chart = container.querySelector('.chart');
+        if (chart) {
+            const wrapper = document.createElement('div');
+            wrapper.classList.add('chart-wrapper');
+            wrapper.style.padding = '40px'; // Adjust padding as needed
+            wrapper.appendChild(chart.cloneNode(true));
+            container.innerHTML = ''; // Clear the container
+            container.appendChild(wrapper);
+        }
+    });
+}
+
+
 
 function initVerticalChart() {
     const data = [
@@ -28,7 +49,67 @@ function initVerticalChart() {
 
     setupVerticalChartAxes(svg, data, width, height);
     addVerticalChartBars(svg, data, width, height);
+    adjustContainerSizes();
+
 }
+function createBibGourmandTable() {
+    const ratingsData = [
+        { rating: "Bib Gourmand", restaurants: 3333 },
+        { rating: "1 Star", restaurants: 2844 },
+        { rating: "2 Stars", restaurants: 474 },
+        { rating: "3 Stars", restaurants: 143 }
+    ];
+
+    const table = d3.select("#bib-gourmand").append("table");
+
+    const thead = table.append("thead");
+    const tbody = table.append("tbody");
+
+    // Append table headers
+    thead.append("tr")
+        .selectAll("th")
+        .data(["Rating", "Number of Restaurants"])
+        .enter()
+        .append("th")
+        .text(function(d) { return d; });
+    const style = document.createElement('style');
+    style.textContent = `
+        .tiny-image {
+            width: 28px;
+            height: 25px;
+        }
+    `;
+    document.head.append(style);
+
+    // Append table rows
+    const rows = tbody.selectAll("tr")
+        .data(ratingsData)
+        .enter()
+        .append("tr");
+
+    // Append data to each row
+    rows.selectAll("td")
+        .data(function(d) { return [d.rating, d.restaurants]; })
+        .enter()
+        .append("td")
+        
+        .html(function(d, i) {
+            if (i === 0) {
+                // Use images for ratings
+                if (d === "Bib Gourmand") {
+                    return "<img src='../static/images/bib_gourmand.jpg' alt='Bib Gourmand' class='tiny-image' /> " + d;
+                } else {
+                    const stars = d.split(" ")[0];
+                    return "<span>" + "<img src='../static/images/1star.svg.png' alt='Star' class='tiny-image' /> ".repeat(parseInt(stars)) + "</span>" + d;
+                }
+            } else {
+                return d;
+            }
+        });
+        adjustContainerSizes();
+
+}
+
 function setupHorizontalChartAxes(svg, data, width, height) {
     const x = d3.scaleLinear()
         .domain([0, d3.max(Object.values(data))])
@@ -49,7 +130,6 @@ function setupHorizontalChartAxes(svg, data, width, height) {
         .call(d3.axisBottom(x).ticks(5).tickSize(-height).tickFormat(d3.format("d"))); // Adjust tickSize to -height
 
 }
-
 
 function addHorizontalChartBars(svg, data, width, height) {
     const x = d3.scaleLinear()
@@ -175,7 +255,6 @@ function MapChart() {
             locationmode: 'country names',
             locations: expandedData.map(item => item.Country),
             z: expandedData.map(item => item.Listings),
-            text: expandedData.map(item => `${item.Country}: ${item.Listings} listings`),
             colorscale: 'Greens',
             colorbar: {
                 title: 'Listings'
@@ -207,8 +286,55 @@ function MapChart() {
 
     const mapChartDiv = document.getElementById('map-chart');
     Plotly.newPlot(mapChartDiv, fig);
+    adjustContainerSizes();
 }
 
+function facilities(){
+    const facData = {
+        'Air conditioning': 4694,
+        'Car park': 2177,
+        'Terrace': 2717,
+        'Interesting wine list': 1741,
+        'Wheelchair access': 2142,
+        'Counter dining': 1062,
+        'Restaurant offering vegetarian menus': 1034,
+        'Cash only': 557,
+        'Garden or park': 533,
+        'Great view': 653,
+        'Valet parking': 455,
+        'No facility and/or service listed': 234,
+        'Brunch': 142,
+        'Cash only - lunch': 36,
+        'Notable sake list': 127,
+        'Credit cards not accepted': 80,
+        'Shoes must be removed': 57,
+        'Foreign credit cards not accepted': 41,
+        'Bring your own bottle': 12,
+        'Booking essential': 5,
+        'Reservations not accepted': 2
+    };
+    
+
+    const margin = { top: 30, right: 30, bottom: 70, left: 60 },
+          width = 460 - margin.left - margin.right,
+          height = 400 - margin.top - margin.bottom;
+
+
+    const svg = d3.select("#facility-chart") // Select the container for the second horizontal chart
+        .append("svg")
+        .attr("width", width + margin.left + margin.right)
+        .attr("height", height + margin.top + margin.bottom)
+        .append("g")
+        .attr("transform", `translate(${margin.left},${margin.top})`);
+    
+    setupHorizontalChartAxes(svg, facData, width, height);
+    addHorizontalChartBars(svg, facData, width, height);
+    adjustContainerSizes();
+    svg.selectAll(".axis--y text")
+    .style("font-size", "5px"); // Adjust the font size as needed
+
+
+}
 
 
 function SecondHorizontalChart() {
@@ -240,9 +366,10 @@ function SecondHorizontalChart() {
         "Creative, Contemporary": 49
     };
     
-    const margin = {top: 20, right: 30, bottom: 40, left: 180},
-    width = 960 - margin.left - margin.right,
-    height = 500 - margin.top - margin.bottom;
+    const margin = { top: 30, right: 30, bottom: 70, left: 60 },
+          width = 460 - margin.left - margin.right,
+          height = 400 - margin.top - margin.bottom;
+
 
     const svg = d3.select("#second-horizontal-chart") // Select the container for the second horizontal chart
         .append("svg")
@@ -253,6 +380,11 @@ function SecondHorizontalChart() {
     
     setupHorizontalChartAxes(svg, cuisineData, width, height);
     addHorizontalChartBars(svg, cuisineData, width, height);
+    adjustContainerSizes();
+    svg.selectAll(".axis--y text")
+    .style("font-size", "5px"); // Adjust the font size as needed
+
+
 }
 function initHorizontalChart() {
     const dataHorizontal = [
@@ -304,9 +436,9 @@ function initHorizontalChart() {
 
     let activeContinents = new Set();
 
-    const margin = {top: 20, right: 30, bottom: 40, left: 180},
-        width = 960 - margin.left - margin.right,
-        height = 500 - margin.top - margin.bottom;
+    const margin = { top: 30, right: 30, bottom: 70, left: 60 },
+          width = 460 - margin.left - margin.right,
+          height = 400 - margin.top - margin.bottom;
 
     const svg = d3.select("#horizontal-chart")
         .append("svg")
@@ -341,6 +473,8 @@ function initHorizontalChart() {
         svg.append("g")
             .attr("class", "axis axis--y")
             .call(d3.axisLeft(y));
+        svg.selectAll(".axis--y text")
+        .style("font-size", "7px"); // Adjust the font size as needed
 
 
         svg.append("g")
@@ -366,6 +500,8 @@ function initHorizontalChart() {
             .on("mouseout", function(d) {
                 tooltip.transition().duration(500).style("opacity", 0);
             });
+            adjustContainerSizes();
+
     }
 
     
