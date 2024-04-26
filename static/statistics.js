@@ -52,6 +52,7 @@ function initVerticalChart() {
     adjustContainerSizes();
 
 }
+
 function createBibGourmandTable() {
     const ratingsData = [
         { rating: "Bib Gourmand", restaurants: 3333 },
@@ -60,7 +61,7 @@ function createBibGourmandTable() {
         { rating: "3 Stars", restaurants: 143 }
     ];
 
-    const table = d3.select("#bib-gourmand").append("table");
+    const table = d3.select("#bib-gourmand").append("table").attr("class", "styled-table");
 
     const thead = table.append("thead");
     const tbody = table.append("tbody");
@@ -72,14 +73,6 @@ function createBibGourmandTable() {
         .enter()
         .append("th")
         .text(function(d) { return d; });
-    const style = document.createElement('style');
-    style.textContent = `
-        .tiny-image {
-            width: 28px;
-            height: 25px;
-        }
-    `;
-    document.head.append(style);
 
     // Append table rows
     const rows = tbody.selectAll("tr")
@@ -92,7 +85,6 @@ function createBibGourmandTable() {
         .data(function(d) { return [d.rating, d.restaurants]; })
         .enter()
         .append("td")
-        
         .html(function(d, i) {
             if (i === 0) {
                 // Use images for ratings
@@ -106,8 +98,46 @@ function createBibGourmandTable() {
                 return d;
             }
         });
-        adjustContainerSizes();
 
+    // Additional styling with CSS
+    const style = document.createElement('style');
+    style.textContent = `
+        .styled-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 25px 0;
+            font-size: 0.9em;
+            font-family: sans-serif;
+            min-width: 400px;
+            box-shadow: 0 0 20px rgba(0,0,0,0.15);
+        }
+        .styled-table thead tr {
+            background-color: rgb(166, 48, 48);
+            color: #ffffff;
+            text-align: center;
+        }
+        .styled-table th,
+        .styled-table td {
+            padding: 12px 15px;
+            text-align: center;
+        }
+        .styled-table tbody tr {
+            border-bottom: 1px solid #dddddd;
+        }
+        .styled-table tbody tr:nth-of-type(even) {
+            background-color: #f3f3f3;
+        }
+        .styled-table tbody tr:last-of-type {
+            border-bottom: 2px solid rgb(166, 48, 48);
+        }
+        .tiny-image {
+            width: 28px;
+            height: 25px;
+        }
+    `;
+    document.head.append(style);
+
+    adjustContainerSizes(); // Ensure container sizes are adjusted after table creation
 }
 
 function setupHorizontalChartAxes(svg, data, width, height) {
@@ -143,8 +173,7 @@ function addHorizontalChartBars(svg, data, width, height) {
 
     const color = d3.scaleOrdinal(d3.schemeCategory10);
 
-    const tooltip = d3.select("body").append("div")
-        .attr("class", "tooltip");
+    const tooltip = setupTooltip();
 
     svg.selectAll(".bar")
         .data(Object.entries(data))
@@ -213,7 +242,12 @@ function addVerticalChartBars(svg, data, width, height) {
 function setupTooltip() {
     return d3.select("body").append("div")
         .attr("class", "tooltip")
-        .style("opacity", 0);
+        .style("opacity", 0)
+        .style("background-color", "red")    // Sets the background color of the tooltip to red
+        .style("color", "white")            // Sets the text color to white
+        .style("padding", "10px")           // Adds some padding inside the tooltip for better readability
+        .style("border-radius", "5px")      // Optionally adds rounded corners
+        .style("pointer-events", "none");   // Ensures the tooltip itself does not interfere with mouse events
 }
 
 function showTooltip(event, tooltip, htmlContent) {
@@ -230,6 +264,7 @@ function hideTooltip(tooltip) {
         .duration(500)
         .style("opacity", 0);
 }
+
 function MapChart() {
     const michelinData = {
         'France': 1016, 'Japan': 733, 'Italy': 651, 'USA': 600, 'Germany': 581, 'Spain': 500, 'United Kingdom': 275,
@@ -304,14 +339,12 @@ function facilities(){
         'Valet parking': 455,
         'No facility and/or service listed': 234,
         'Brunch': 142,
-        'Cash only - lunch': 36,
         'Notable sake list': 127,
         'Credit cards not accepted': 80,
         'Shoes must be removed': 57,
         'Foreign credit cards not accepted': 41,
+        'Cash only - lunch': 36,
         'Bring your own bottle': 12,
-        'Booking essential': 5,
-        'Reservations not accepted': 2
     };
     
 
@@ -339,31 +372,26 @@ function facilities(){
 
 function SecondHorizontalChart() {
     const cuisineData = {
-        "Modern Cuisine": 918,
-        "Creative": 384,
-        "Japanese": 278,
-        "Traditional Cuisine": 203,
+        "Modern Cuisine": 1197,
+        "Creative": 651,
+        "Japanese": 362,
+        "Contemporary": 283,
+        "Traditional Cuisine": 259,
+        "Country cooking": 210,
+        "French": 188,
+        "Italian": 187,
         "Street Food": 168,
-        "French": 135,
-        "Contemporary": 134,
-        "Italian": 119,
-        "Cantonese": 115,
-        "Creative, Modern Cuisine": 90,
-        "Thai": 80,
-        "Classic Cuisine": 78,
+        "Classic Cuisine": 139,
+        "Farm to table": 126,
+        "Modern French": 120,
+        "Cantonese": 116,
+        "Seafood": 113,
+        "Mediterranean Cuisine": 107,
+        "Chinese": 104,
+        "Regional Cuisine": 103,
+        "Thai": 91,
         "Sushi": 74,
-        "Noodles": 72,
-        "Modern French": 71,
-        "Modern British": 68,
-        "Modern Cuisine, Creative": 67,
-        "Seafood": 66,
-        "Chinese": 57,
-        "Farm to table": 53,
-        "Taiwanese": 52,
-        "Innovative": 51,
-        "French Contemporary": 50,
-        "Japanese, Sushi": 49,
-        "Creative, Contemporary": 49
+        "Noodles": 73
     };
     
     const margin = { top: 30, right: 30, bottom: 70, left: 60 },
@@ -456,8 +484,7 @@ function initHorizontalChart() {
 
     const color = d3.scaleOrdinal(d3.schemeCategory10);
 
-    const tooltip = d3.select("body").append("div")
-        .attr("class", "tooltip");
+    const tooltip = setupTooltip();
 
     function updateChart() {
         let filteredData = activeContinents.size === 0 ? dataHorizontal :
