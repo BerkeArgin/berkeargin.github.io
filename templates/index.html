@@ -11,6 +11,8 @@
     <script src="http://d3js.org/d3.v6.min.js" type="text/javascript"></script>
     <script src="http://cdn.leafletjs.com/leaflet-0.7/leaflet.js"></script>
     <script src='https://api.tiles.mapbox.com/mapbox.js/v1.6.4/mapbox.js'></script>
+    <script src="https://unpkg.com/leaflet.heat/dist/leaflet-heat.js"></script>
+    <link rel="icon" sizes="192x192" type="image/png" href="../static/images/website_logo.jpg">
     <style>
     html, body {
         height: 100%;
@@ -35,7 +37,7 @@
         align-items: center;
     }
     .navbar-logo {
-        height: 70px;
+        height: 75px;
         margin-right: 2px; /* Space between logo and title */
     }
     .navbar-title {
@@ -287,30 +289,30 @@
         margin-bottom: 5px; /* Spacing between list items */
     }
     .theme-selector {
-        transition: transform 0.3s ease, opacity 0.3s ease;
-        transform: translateY(-10px);  /*  Less movement for a subtler appearance */
+        display: block; /* Ensures vertical stacking */
         opacity: 0;
-        display: inline-block;
+        transition: opacity 0.3s ease-in-out;
         vertical-align: middle;
     }
 
+    .theme-selector:hover {
+        opacity: 1; /* Make selector visible on hover */
+    }
+
     .theme-selector label {
-        margin-right: 10px;
-        transition: color 0.3s ease;  /* Simplified to focus on color transitions */
+        display: block; /* Ensures the label takes up full width */
+        color: rgb(166, 64, 48);
+        margin-bottom: 5px; /* Provides spacing between label and dropdown */
     }
 
-    .theme-selector:hover label {
-        color: rgb(166, 48, 48); /* Updated to a modern deep blue shade */
+    #colorThemeSelector {
+        width: 100%; /* Optional: Adjust based on design requirements */
+        box-shadow: 0 0 15px 3px rgba(41, 128, 185, 0.75); /* Styling for when select is active */
+        transition: box-shadow 0.5s cubic-bezier(0.215, 0.61, 0.355, 1);
     }
 
-    .navbar-nav:hover .theme-selector {
-        transform: translateY(0);  /* Resets to original position smoothly */
-        opacity: 1;  /* Fully visible on hover */
-    }
-
-    #colorThemeSelector.theme-changed {
-        box-shadow: 0 0 15px 3px rgba(41, 128, 185, 0.75); /* Modern blue glow effect */
-        transition: box-shadow 0.5s cubic-bezier(0.215, 0.61, 0.355, 1); /* Using cubic-bezier for a 'bounce' effect */
+    #colorThemeSelector:focus {
+        box-shadow: 0 0 15px 3px rgba(41, 128, 185, 0.75); /* Enhanced focus state */
     }
 
     </style>
@@ -341,7 +343,8 @@
                     <option value="coolTones">Cool Tones</option>
                     <option value="alpinePalette">Alpine</option>
                 </select>
-            </div>
+            </div>            
+            
         </div>
     </div>
     

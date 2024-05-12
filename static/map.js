@@ -171,7 +171,7 @@ function setTileLayer(theme) {
     currentTileLayer.addTo(map);
 }
 
-
+// Initialize the map
 initializeMap();
 
 // Set up SVG overlay for data visualization
@@ -185,6 +185,7 @@ addTogglePanelControl();
 
 // Initialize filter event listeners
 initializeFilterControls();
+
 
 function setupSvgOverlay() {
     const svg = d3.select(map.getPanes().overlayPane).append("svg");
@@ -224,8 +225,6 @@ function processFilteredData() {
             return; // Stop further map center updates
         }
     }
-
-
     // Update map center based on filters
     updateMapCenter();
 }
@@ -348,7 +347,7 @@ function createPopupContent(datapoint) {
 
 
 function getAwardImage(award) {
-    const baseImgPath = "../static/images/";
+    const baseImgPath = "/project-2024-datatouille/static/images/";
     // Define a structure containing filename and specific width for each award type
     const awards = {
         "Bib Gourmand": { file: "bib_gourmand.jpg", width: 30 },
@@ -364,12 +363,22 @@ function getAwardImage(award) {
     return `<img src="${baseImgPath + awardInfo.file}" alt="${altText}" style="width: ${awardInfo.width}px; height: 20px;"> ${award || 'No Award'}`;
 }
 
-
 function updateTheme(theme) {
     currentTheme = theme;
     setTileLayer(theme);
     processFilteredData(); // Reapply the data processing to refresh map with new colors
 }
+
+document.getElementById('colorThemeSelector').addEventListener('click', function(event) {
+    this.size = this.length;  // Expand dropdown
+}, false);
+
+document.addEventListener('click', function(event) {
+    const selectElement = document.getElementById('colorThemeSelector');
+    if (event.target !== selectElement) {
+        selectElement.size = 0;  // Collapse dropdown when clicking outside
+    }
+});
 
 document.getElementById('colorThemeSelector').addEventListener('focus', function() {
     this.style.backgroundColor = "#f0f0f0"; // Lightens the background on focus
@@ -433,6 +442,7 @@ function toggleFilterPanel() {
     map.invalidateSize();  // Ensure the map adjusts to new dimensions
 }
 
+// Filter part
 function initializeFilterControls() {
     document.getElementById('apply-filters').addEventListener('click', function() {
         let selectedCuisines = Array.from(document.querySelectorAll('.cuisine-chip .cuisine-text')).map(span => span.textContent.trim());
@@ -453,6 +463,7 @@ function initializeFilterControls() {
         processFilteredData(); // Reload data with new filters
     });
 }
+// Filter part
 
 // CUISINE
 const predefinedCuisines = [
@@ -588,7 +599,7 @@ function applyFilters(data, filters) {
         if (filters.name && !d.properties.Name.toLowerCase().includes(filters.name.toLowerCase())) return false;
         if (filters.awards && filters.awards.length > 0 && !filters.awards.includes(d.properties.Award)) return false;
         if (filters.continents && filters.continents.length > 0 && !filters.continents.includes(d.properties.Continent)) return false;
-        if (filters.priceRange && d.properties.currentPrice > filters.priceRange) return false;
+        if (filters.priceRange && d.properties.currentPrice !== filters.priceRange) return false;
         // New filter condition for cuisine
         if (filters.cuisine && filters.cuisine.length > 0 && !filters.cuisine.some(cuisine => d.properties.PrimaryCuisine.toLowerCase() === cuisine.toLowerCase())) return false;
         if (filters.facilitiesAndServices && filters.facilitiesAndServices.length > 0) {
